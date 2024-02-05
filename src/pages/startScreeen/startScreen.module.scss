@@ -1,0 +1,61 @@
+@media screen and (min-width: 360px) {
+  main {
+    max-width: 450px;
+    background: #2a2828;
+    margin: 0 auto;
+    padding-top: 20px;
+    position: relative;
+    .main_wrap {
+      width: 360px;
+      margin: 0 auto;
+      position: relative;
+      p {
+        width: 242px;
+        font-size: 17px;
+        color: #ffffff;
+      }
+
+      img {
+        width: 371px;
+      }
+    }
+    .choice {
+      width: 350px;
+      margin: 0 auto;
+      padding-top: 30px;
+      p {
+        text-align: center;
+        width: 340px;
+        font-size: 17px;
+        color: #ffffff;
+      }
+    }
+    .buttons {
+      width: 240px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 0 auto;
+
+      .button1 {
+        align-items: center;
+        width: 184px;
+        font-size: 14px;
+        padding: 10px 7px;
+        background: #00ac83;
+        color: #ffffff;
+        border: none;
+      }
+      .button2 {
+        align-items: center;
+        width: 184px;
+        font-size: 14px;
+        padding: 10px 7px;
+        background: #005b3b;
+        color: #ffffff;
+        border: none;
+      }
+    }
+  }
+}
