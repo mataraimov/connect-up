@@ -1,5 +1,5 @@
 import React from 'react';
-import './app.css';
+import './App.css';
 import StartScreen from './pages/startScreeen/StartScreen';
 const App = () => {
   return (
