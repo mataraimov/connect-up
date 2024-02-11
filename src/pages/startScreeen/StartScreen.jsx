@@ -19,19 +19,21 @@ const StartScreen = () => {
           </p>
           <img src="/assets/jellyfish.png" alt="jellyfish" />
         </div>
-        <div className={styles.choice}>
-          <p>
-            Присоединяйся к ConnectUP, чтобы быть на связи с университетским сообществом. Студент
-            или преподаватель – твое место здесь!
-          </p>
-        </div>
-        <div className={styles.buttons}>
-          <button onClick={() => setModalActive(true)} className={styles.button1}>
-            Войти
-          </button>
-          <button onClick={() => setModalSignUpActive(true)} className={styles.button2}>
-            Регистрация
-          </button>
+        <div className={styles.choiceButtonsWrapper}>
+          <div className={styles.choice}>
+            <p>
+              Присоединяйся к ConnectUP, чтобы быть на связи с университетским сообществом. Студент
+              или преподаватель – твое место здесь!
+            </p>
+          </div>
+          <div className={styles.buttons}>
+            <button onClick={() => setModalActive(true)} className={styles.button1}>
+              Войти
+            </button>
+            <button onClick={() => setModalSignUpActive(true)} className={styles.button2}>
+              Регистрация
+            </button>
+          </div>
         </div>
         <ModalStartScreen active={modalActive} setActive={setModalActive} />
         <SignUpModal active={modalSignUpActive} setActive={setModalSignUpActive} />

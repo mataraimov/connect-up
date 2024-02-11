@@ -1,6 +1,6 @@
 @media screen and (min-width: 360px) {
   header {
-    max-width: 450px;
+    max-width: 100%;
     background: #2a2828;
     margin: 0 auto;
     .header_wrap {
@@ -39,7 +39,7 @@
 
 @media screen and (min-width: 768px) {
   header {
-    max-width: 760px;
+    max-width: 100%;
     .header_wrap {
       width: 650px;
     }
@@ -48,7 +48,7 @@
 
 @media screen and (min-width: 1024px) {
   header {
-    max-width: 1020px;
+    max-width: 100%;
     .header_wrap {
       width: 900px;
     }
@@ -57,7 +57,7 @@
 
 @media screen and (min-width: 1440px) {
   header {
-    max-width: 1536px;
+    max-width: 100%;
     .header_wrap {
       width: 1380px;
     }
