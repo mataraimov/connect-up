@@ -6,3 +6,21 @@
   padding: 0;
   font-family: 'Comfortaa', sans-serif;
 }
+#root {
+	background: linear-gradient(-45deg, #AE1A60, #571543,#6d0c50,#391557, #2a205a,#3409C7,#927EFA,#927EFA);
+	background-size: 400% 400%;
+	animation: gradient 65s ease-out infinite;
+	height: 100%;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
