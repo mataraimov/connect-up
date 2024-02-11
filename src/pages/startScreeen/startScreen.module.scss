@@ -46,6 +46,9 @@
         background: #00ac83;
         color: #ffffff;
         border: none;
+        &:hover {
+          background: #057e62;
+        }
       }
       .button2 {
         align-items: center;
@@ -55,7 +58,97 @@
         background: #005b3b;
         color: #ffffff;
         border: none;
+        &:hover {
+          background: #02a66d;
+        }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    max-width: 760px;
+    .main_wrap {
+      padding-top: 30px;
+      width: 650px;
+
+      p {
+        width: 600px;
+        font-size: 19px;
+      }
+      img {
+        padding-top: 10px;
+        width: 400px;
+      }
+    }
+    .choice {
+      width: 370px;
+      font-size: 19px;
+    }
+    .buttons {
+      width: 245px;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    max-width: 1020px;
+    .main_wrap {
+      padding-top: 40px;
+      width: 780px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      p {
+        width: 800px;
+        font-size: 20px;
+      }
+      img {
+        width: 500px;
+      }
+    }
+    .choice {
+      width: 400px;
+      p {
+        width: 380px;
+        font-size: 20px;
+      }
+    }
+    .buttons {
+      width: 315px;
+      .button1 {
+        width: 250px;
+      }
+      .button2 {
+        width: 250px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main {
+    max-width: 1536px;
+    .main_wrap {
+      padding-top: 40px;
+      width: 1200px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      p {
+        width: 900px;
+        font-size: 20px;
+      }
+      img {
+        width: 700px;
+      }
+    }
+    .choice {
+      padding-top: 50px;
+      width: 400px;
     }
   }
 }

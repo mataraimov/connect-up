@@ -1,0 +1,104 @@
+/* Модальное окно */
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  
+  .modal.active {
+    pointer-events: all;
+    opacity: 1;
+  }
+  
+  .modal__content {
+    padding: 5px;
+    border-radius: 2px;
+    background: #927efa;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    height: 300px;
+  }
+  
+  .modal__content .wrap .span1 {
+    padding-top: 60px;
+    color: #ffffff;
+    font-size: 22px;
+  }
+  
+  .modal__content .wrap .span2 {
+    color: #ffffff;
+    padding-bottom: 5px;
+  }
+  
+  a {
+    color: #5636f3;
+    text-decoration: none;
+  }
+  
+  .modal__content .wrap .buttons {
+    padding-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  /* Стили для кнопок */
+  .button1 {
+    font-size: 17px;
+    color: #ffffff;
+    background: #00ac83;
+    border: none;
+    padding: 15px;
+    width: 200px;
+    transition: background-color 0.3s;
+  }
+  
+  .button2 {
+    font-size: 17px;
+    color: #ffffff;
+    background: #005b3b;
+    border: none;
+    padding: 15px;
+    width: 200px;
+    transition: background-color 0.3s;
+  }
+  
+  /* Эффект hover */
+  .button1:hover {
+    background: #077c53;
+  }
+  
+  .button2:hover {
+    background: #0a7c62;
+  }
+  
+  /* Закрытие модального окна */
+  .qwerty,
+  .otmena {
+    color: #ffffff;
+    padding-left: 370px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .qwerty:hover,
+  .otmena:hover {
+    color: #dad5d5; /* Изменяем цвет при наведении курсора */
+  }
+  
+  .modal__content.active {
+    transform: scale(1);
+  }
+  

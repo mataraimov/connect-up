@@ -4,7 +4,7 @@
     background: #2a2828;
     margin: 0 auto;
     .header_wrap {
-      width: 410px;
+      width: 360px;
       padding-top: 10px;
       padding-bottom: 10px;
       margin: 0 auto;
@@ -33,6 +33,33 @@
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  header {
+    max-width: 760px;
+    .header_wrap {
+      width: 650px;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  header {
+    max-width: 1020px;
+    .header_wrap {
+      width: 900px;
+    }
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  header {
+    max-width: 1536px;
+    .header_wrap {
+      width: 1380px;
     }
   }
 }

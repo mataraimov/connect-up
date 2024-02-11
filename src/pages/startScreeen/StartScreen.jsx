@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../../components/Layout/header/Header';
 import styles from './startScreen.module.scss';
+import ModalStartScreen from '../../components/Modal/modalStartScreen/ModalStartScreen';
+import SignUpModal from '../../components/Modal/signUpModal/SignUpModal';
+
 const StartScreen = () => {
+  const [modalActive, setModalActive] = useState(false);
+  const [modalSignUpActive, setModalSignUpActive] = useState(false);
   return (
     <>
       <Header />
@@ -20,10 +25,16 @@ const StartScreen = () => {
             или преподаватель – твое место здесь!
           </p>
         </div>
-          <div className={styles.buttons}>
-            <button className={styles.button1}>Войти</button>
-            <button className={styles.button2}>Регистрация</button>
-          </div>
+        <div className={styles.buttons}>
+          <button onClick={() => setModalActive(true)} className={styles.button1}>
+            Войти
+          </button>
+          <button onClick={() => setModalSignUpActive(true)} className={styles.button2}>
+            Регистрация
+          </button>
+        </div>
+        <ModalStartScreen active={modalActive} setActive={setModalActive} />
+        <SignUpModal active={modalSignUpActive} setActive={setModalSignUpActive} />
       </main>
     </>
   );
