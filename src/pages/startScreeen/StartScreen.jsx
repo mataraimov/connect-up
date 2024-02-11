@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../../components/Layout/header/Header';
 import styles from './startScreen.module.scss';
 import ModalStartScreen from '../../components/Modal/modalStartScreen/ModalStartScreen';
-import SignUpModal from '../../components/Modal/signUpModal/SignUpModal';
+import SignUpModal from '../../components/Modal/SignUpModal/SignUpModal';
 
 const StartScreen = () => {
   const [modalActive, setModalActive] = useState(false);
