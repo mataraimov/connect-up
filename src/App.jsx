@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import LoginStudent from './pages/Student/entrance/login/LoginStudent';
 import LoginTeacher from './pages/Teacher/entrance/login/LoginTeacher';
 import SignUpStudent from './pages/Student/entrance/signup/SignUpStudent';
-import SignUpTeacher from './pages/Teacher/entrance/signup/signUpTeacher';
+import SignUpTeacher from './pages/Teacher/entrance/signup/SignUpTeacher';
 
 const App = () => {
   return (
