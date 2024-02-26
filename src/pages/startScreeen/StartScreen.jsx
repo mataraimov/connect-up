@@ -37,6 +37,8 @@ const StartScreen = () => {
         </div>
         <ModalStartScreen active={modalActive} setActive={setModalActive} />
         <SignUpModal active={modalSignUpActive} setActive={setModalSignUpActive} />
+        <ModalStartScreen activeRegistr={modalSignUpActive} setActiveRegistr={setModalSignUpActive} />
+        <SignUpModal activeLogin={modalActive} setActiveLogin={setModalActive} />
       </main>
     </>
   );

@@ -1,4 +1,4 @@
-.modal {
+.modal2 {
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.4);
@@ -13,12 +13,12 @@
   transition: 0.5s;
 }
 
-.modal.active {
+.modal2.active2 {
   pointer-events: all;
   opacity: 1;
 }
 
-.modal__content {
+.modal__content2 {
   padding: 5px;
   border-radius: 2px;
   background: #927efa;
@@ -27,16 +27,15 @@
   flex-direction: column;
   align-items: center;
   width: 400px;
-  height: 380px;
+  height: 450px;
 }
 
-.modal__content .span1 {
-  padding-top: 80px;
+.modal__content2 .span1 {
   color: #ffffff;
   font-size: 22px;
 }
 
-.modal__content .wrap .buttons {
+.modal__content2 .wrap .buttons {
   padding-top: 30px;
   display: flex;
   flex-direction: column;
@@ -44,7 +43,7 @@
 }
 
 button {
-  margin-top: 10px;
+  margin-top: 15px;
   font-size: 17px;
   color: #ffffff;
   background: #00ac83;
@@ -60,15 +59,15 @@ button:hover {
   background: #077c53;
 }
 
-.modal__content .inputs {
+.modal__content2 .inputs2 {
   padding-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   align-items: center;
 }
 
-.modal__content .inputs input {
+.modal__content2 .inputs2 input {
   width: 300px;
   padding: 10px;
   border: none;
@@ -77,33 +76,49 @@ button:hover {
   background: #fbfbfb;
 }
 
-.modal__content .registr {
-  margin-top: 60px;
+.modal__content2 .inputs2 .checkbox_wrap {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  width: 200px;
 }
 
-.modal__content .registr .span1 {
+.modal__content2 .inputs2 .checkbox_wrap input {
+  width: 15px;
+}
+.modal__content2 .inputs2 .checkbox_wrap span {
   color: #ffffff;
-  font-size: 16px;
+  font-size: 15px;
 }
 
-.modal__content .registr .span2 {
-  cursor: pointer;
+.modal__content2 .login {
+  padding-top: 40px;
+}
+
+.modal__content2 .login .span1 {
+  font-size: 18px;
+}
+
+.modal__content2 .login .span2 {
   color: rgb(16, 16, 120);
+  font-size: 18px;
+  cursor: pointer;
 }
 
-.qwerty,
-.otmena {
+.qwerty2,
+.otmena2 {
   color: #ffffff;
   padding-left: 370px;
   font-size: 20px;
   cursor: pointer;
 }
 
-.qwerty:hover,
-.otmena:hover {
+.qwerty2:hover,
+.otmena2:hover {
   color: #dad5d5;
 }
 
-.modal__content.active {
+.modal__content2.active2 {
   transform: scale(1);
 }
