@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './modalSignUp.css';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
-import { refreshAccessToken } from '../../utils/refreshAccessToken';
 import CustomNotification from '../../utils/Toasts/CustomNotification';
 
 const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
@@ -19,9 +18,7 @@ const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
 
   const onFinish = async (e) => {
     e.preventDefault();
-
     try {
-      await refreshAccessToken();
       const apiUrl = isTeacher ? '/users/teacher/registration' : '/users/registration';
       const response = await axios.post(`${API_URL}${apiUrl}`, formData);
       setFormData({
@@ -32,6 +29,7 @@ const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
         second_name: '',
       });
       setShowSuccessNotification(true);
+      setActive(false);
     } catch (error) {
       console.error('Error:', error);
       setShowErrorNotification(true);
@@ -60,7 +58,7 @@ const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
   };
 
   const handleCloseErrorNotification = () => {
-    showErrorNotification(false);
+    showErrorNotification(false)
   };
 
   return (

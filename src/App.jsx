@@ -4,11 +4,12 @@ import StartScreen from './pages/startScreeen/StartScreen';
 import { Route, Routes } from 'react-router-dom';
 
 const App = () => {
+  
   return (
     <>
       <Routes>
-        <Route path="/" element={<StartScreen />} />
-
+        <Route path="/startscreen" element={<StartScreen />} />
+        
         <Route path="*" element={<StartScreen />} />
       </Routes>
     </>

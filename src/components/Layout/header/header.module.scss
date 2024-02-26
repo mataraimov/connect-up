@@ -11,6 +11,9 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      a {
+        text-decoration: none;
+      }
       .img1 {
         width: 40px;
       }
