@@ -19,7 +19,7 @@ const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
   const onFinish = async (e) => {
     e.preventDefault();
     try {
-      const apiUrl = isTeacher ? '/users/teacher/registration' : '/users/registration';
+      const apiUrl = isTeacher ? '/users/teacher/registration/' : '/users/registration/';
       const response = await axios.post(`${API_URL}${apiUrl}`, formData);
       setFormData({
         email: '',
@@ -58,7 +58,7 @@ const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
   };
 
   const handleCloseErrorNotification = () => {
-    showErrorNotification(false)
+    showErrorNotification(false);
   };
 
   return (
@@ -81,7 +81,8 @@ const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
       <div className={active ? 'modal2 active2' : 'modal2'} onClick={() => setActive(false)}>
         <div
           className={active ? 'modal__content2 active2' : 'modal__content2'}
-          onClick={(e) => e.stopPropagation()}>
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className={active ? 'qwerty2' : 'otmena2'} onClick={handleCloseModal}>
             x
           </div>
