@@ -21,7 +21,7 @@ const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }
             x
           </div>
           <div className="modal__content">
-            <span className="span1">Регистрация </span>
+            <span className="span1">Авторизация </span>
             <form action="">
               <div className="inputs">
                 <input type="text" placeholder="email" />
