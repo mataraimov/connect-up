@@ -9,7 +9,7 @@ const StartScreen = () => {
   const [modalSignUpActive, setModalSignUpActive] = useState(false);
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
       <main>
         <div className={styles.main_wrap}>
