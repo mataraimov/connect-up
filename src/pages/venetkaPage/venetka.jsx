@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './venetka.module.scss';
+import { getUserProfile, handleCreateAddNewUser } from './model';
 
 function VenetkaPage() {
   const [disSect2, setDisSect2] = useState('none');
@@ -15,7 +16,7 @@ function VenetkaPage() {
         }
         const data = await res.json();
         setGroupData(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error('Ошибка:', error.message);
       }
@@ -23,12 +24,13 @@ function VenetkaPage() {
     fetchData();
   }, []);
 
-  const handleItemClick = (member) => {
+  const handleItemClick = async (member) => {
     if (selectedMember && selectedMember.id === member.id) {
       setSelectedMember(null); // Если кликнули на уже открытого студента, то закрываем его блок
       setDisSect2('none'); // Скрываем блок
     } else {
-      setSelectedMember(member);
+      const userProfile = await getUserProfile(member.id);
+      setSelectedMember(userProfile);
       setDisSect2('block');
     }
   };
@@ -36,6 +38,11 @@ function VenetkaPage() {
     setSelectedMember(null);
     setDisSect2('none');
   };
+  useEffect(() => {
+    handleCreateAddNewUser()
+  }, [])
+  console.log(groupData);
+
   return (
     <main>
       <section className={styles.section1}>
@@ -49,6 +56,7 @@ function VenetkaPage() {
             <a href={groupData && groupData.group_url}>{groupData && groupData.group_url}</a>
           </p>
           <p>Владелец группы: {groupData && groupData.group_owner}</p>
+          {/* <button onClick={handleCreateAddNewUser}>добавить пользователей +</button> */}
         </div>
         <div className={styles.students_block}>
           {groupData &&
@@ -64,25 +72,25 @@ function VenetkaPage() {
         </div>
       </section>
       <section className={styles.section2} style={{ display: disSect2 }}>
-        {selectedMember && (
+        {selectedMember && Object.keys(selectedMember).length > 0 ? (
           <div>
             <button className={styles.close_button} onClick={handleCloseDetail}>
               ✖
             </button>
             <blockquote>
-              <img src={selectedMember.profile_avatar} alt="" />
+              <img src={selectedMember?.profile_avatar} alt="" />
             </blockquote>
             <blockquote>
-              <h1>Студент №{selectedMember.id}</h1>
-              <h2>Имя: {selectedMember.name}</h2>
-              <h2>Работа: {selectedMember.employed ? 'имеется' : 'отсутствует'}</h2>
-              <h2>Ссылка на LinkedIn: </h2>
+              <h1>Студент №{selectedMember?.id}</h1>
+              <h2>Имя: {selectedMember?.name}</h2>
+              <h2>Работа: {selectedMember?.employed ? 'имеется' : 'отсутствует'}</h2>
+              <h2>Ссылка на LinkedIn: {selectedMember?.social_network}</h2>
               <h2>
                 <a href={selectedMember.linkedIn}>{selectedMember.linkedIn}</a>
               </h2>
             </blockquote>
           </div>
-        )}
+        ): 'loading...'}
       </section>
     </main>
   );
