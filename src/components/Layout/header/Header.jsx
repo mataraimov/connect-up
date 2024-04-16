@@ -59,10 +59,13 @@ const Header = () => {
             <div className={styles.menu}>
               <ul>
                 <li>
-                  <Link to="/profile">Профиль</Link>
+                  <Link to="/">Профиль</Link>
                 </li>
                 <li>
                   <Link to="/group">Группа</Link>
+                </li>
+                <li>
+                  <Link to="/events">События</Link>
                 </li>
                 <li>
                   <Link onClick={logout}>Логаут</Link>
