@@ -1,21 +1,31 @@
 import React from 'react';
 import './App.css';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { useAuth } from './components/utils/context';
+import Profile from './pages/profile/Profile';
+import MainPage from './pages/mainPage/MainPage';
 import StartScreen from './pages/startScreeen/StartScreen';
-import { Route, Routes } from 'react-router-dom';
-import Header from './components/Layout/header/Header';
 import VenetkaPage from './pages/venetkaPage/venetka';
 
 const App = () => {
-  
+  const { authData } = useAuth();
+  const { isAuth } = authData;
+
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="/startscreen" element={<StartScreen />} />
-        <Route path='/venetka' element={<VenetkaPage/>}/>
-        <Route path="*" element={<StartScreen />} />
-      </Routes>
-    </>       
+    <Routes>
+      {isAuth ? (
+        <>
+          <Route path="/" element={<Profile />} />
+          <Route path="/mainpage" element={<MainPage />} />
+          <Route path="/venetka" element={<VenetkaPage />} />
+        </>
+      ) : (
+        <>
+          <Route path="/startscreen" element={<StartScreen />} />
+          <Route path="*" element={<Navigate to="/startscreen" />} />
+        </>
+      )}
+    </Routes>
   );
 };
 

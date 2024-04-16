@@ -3,6 +3,8 @@ import './modalSignUp.css';
 import axios from 'axios';
 import { API_URL } from '../../utils/config';
 import CustomNotification from '../../utils/Toasts/CustomNotification';
+import { refreshAccessToken } from '../../utils/refreshAccessToken';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
