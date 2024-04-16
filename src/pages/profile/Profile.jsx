@@ -13,8 +13,9 @@ const Profile = () => {
   const [socialNetwork, setSocialNetwork] = useState('');
   const id = localStorage.getItem('id');
 
-  const isTeacher = localStorage.getItem('is_teacher') === 'true'; // Преобразование строки в булево значение
-
+  // const isTeacher = localStorage.getItem('is_teacher') === 'true'; // Преобразование строки в булево значение
+  const isTeacher = Boolean(localStorage.getItem('is_teacher')); // Лучше использовать прямое преобразование если он уже возвращает boolean
+  console.log(isTeacher);
   const getProfile = async () => {
     try {
       await refreshAccessToken();
