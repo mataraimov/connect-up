@@ -10,7 +10,6 @@ import { useAuth } from '../../utils/context';
 const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }) => {
   const { setAuthData } = useAuth();
 
-
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
   const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,7 +17,7 @@ const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }
     password: '',
   });
   const navigate = useNavigate();
-  
+
   const onFinish = async (e) => {
     e.preventDefault();
 
@@ -26,7 +25,7 @@ const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }
       const response = await axios.post(`${API_URL}/users/login/`, formData);
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
-      setAuthData({isAuth:true})
+      setAuthData({ isAuth: true });
       setFormData({
         email: '',
         password: '',
@@ -79,12 +78,13 @@ const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }
       <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
         <div
           className={active ? 'modal__content active' : 'modal__content'}
-          onClick={(e) => e.stopPropagation()}>
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className={active ? 'qwerty' : 'otmena'} onClick={handleCloseModal}>
             x
           </div>
           <div className="modal__content">
-            <span className="span1">Регистрация </span>
+            <span className="span1">Авторизация </span>
             <form onSubmit={onFinish}>
               <div className="inputs">
                 <input

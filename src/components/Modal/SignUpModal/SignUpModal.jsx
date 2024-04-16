@@ -83,7 +83,8 @@ const SignUpModal = ({ active, setActive, activeLogin, setActiveLogin }) => {
       <div className={active ? 'modal2 active2' : 'modal2'} onClick={() => setActive(false)}>
         <div
           className={active ? 'modal__content2 active2' : 'modal__content2'}
-          onClick={(e) => e.stopPropagation()}>
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className={active ? 'qwerty2' : 'otmena2'} onClick={handleCloseModal}>
             x
           </div>
