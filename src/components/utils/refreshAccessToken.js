@@ -9,8 +9,12 @@ export const refreshAccessToken = async () => {
       refresh_token: refreshToken,
     });
     console.log(response.data);
-    const newAccessToken = response.data.access;
-    localStorage.getItem('access_token', newAccessToken);
+    const newAccessToken = await response.data.access_token;
+    const userID = await response.data.user_status.user_id;
+    const isTeacher = await response.data.user_status.is_Teacher;
+    localStorage.setItem('access_token', newAccessToken);
+    localStorage.setItem('is_teacher', isTeacher);
+    localStorage.setItem('id', userID);
   } catch (error) {
     console.error('Error refreshing Access token', error);
   }

@@ -1,81 +1,88 @@
-import React, { useEffect, useState } from "react";
-import styles from "./venetka.module.scss";
+import React, { useEffect, useState } from 'react';
+import styles from './venetka.module.scss';
 
 function VenetkaPage() {
-  const [disSect2, setDisSect2] = useState("none");
-  const [data, setData] = useState([]);
-  const [detailData, setDetailData] = useState([]);
-
-  const getStudents = async () => {
-    try {
-      const res = await fetch(
-        "https://65c22d98f7e6ea59682accb7.mockapi.io/api/01/lol"
-      );
-      if (!res.ok) {
-        throw new Error("Ошибка при загрузке данных");
-      }
-      const response = await res.json();
-      setData(response);
-      console.log(response);
-    } catch (error) {
-      console.error("Ошибка:", error.message);
-    }
-  };
+  const [disSect2, setDisSect2] = useState('none');
+  const [groupData, setGroupData] = useState(null);
+  const [selectedMember, setSelectedMember] = useState(null);
 
   useEffect(() => {
-    getStudents();
-  }, []);
-  const getDetail = async (id) => {
-    try {
-      const res = await fetch(
-        "https://65c22d98f7e6ea59682accb7.mockapi.io/api/01/lol/" + id
-      );
-      if (!res.ok) {
-        throw new Error("Ошибка при загрузке данных о деталях");
+    async function fetchData() {
+      try {
+        const res = await fetch('http://lizaloxyshka.pythonanywhere.com/groups/detail/2/');
+        if (!res.ok) {
+          throw new Error('Ошибка при загрузке данных');
+        }
+        const data = await res.json();
+        setGroupData(data);
+        console.log(data);
+      } catch (error) {
+        console.error('Ошибка:', error.message);
       }
-      const response = await res.json();
-      setDetailData(response);
-      console.log(response);
-    } catch (error) {
-      console.error("Ошибка с деталями:", error.message);
+    }
+    fetchData();
+  }, []);
+
+  const handleItemClick = (member) => {
+    if (selectedMember && selectedMember.id === member.id) {
+      setSelectedMember(null); // Если кликнули на уже открытого студента, то закрываем его блок
+      setDisSect2('none'); // Скрываем блок
+    } else {
+      setSelectedMember(member);
+      setDisSect2('block');
     }
   };
-  const handleItemClick = (id) => {
-    setDisSect2("block");
-    getDetail(id);
+  const handleCloseDetail = () => {
+    setSelectedMember(null);
+    setDisSect2('none');
   };
   return (
     <main>
       <section className={styles.section1}>
-        <h1>Группа номер 10</h1>
+        <h1>{groupData && groupData.group_name}</h1>
+        <div>
+          <p>Описание группы: {groupData && groupData.group_description}</p>
+          <p>Тип группы: {groupData && groupData.group_type}</p>
+          <p>Год: {groupData && groupData.group_year}</p>
+          <p>
+            Ссылка на группу:{' '}
+            <a href={groupData && groupData.group_url}>{groupData && groupData.group_url}</a>
+          </p>
+          <p>Владелец группы: {groupData && groupData.group_owner}</p>
+        </div>
         <div className={styles.students_block}>
-          {data.map((el, i) => {
-            return (
-              <div key={i} onClick={() => handleItemClick(el.id)}>
-                <img src={el.image} alt="" />
+          {groupData &&
+            groupData.group_member.map((member, index) => (
+              <div key={index} onClick={() => handleItemClick(member)}>
+                <img src={member.profile_avatar} alt="" />
                 <blockquote>
-                  <h2>{el.name}</h2>
-                  <p>{el.quote}</p>
+                  <h2>{member.name}</h2>
+                  <p>{member.quote}</p>
                 </blockquote>
               </div>
-            );
-          })}
+            ))}
         </div>
       </section>
       <section className={styles.section2} style={{ display: disSect2 }}>
-        <div>
-          <blockquote>
-            <img src={detailData.image} alt="" />
-          </blockquote>
-          <blockquote>
-            <h1>Студент №{detailData.id}</h1>
-            <h2>Имя: {detailData.name}</h2>
-            <h2>Фамилия: {detailData.last_name}</h2>
-            <h2>Работа: {detailData.employed ? "имеется" : "отсутствует"}</h2>
-            <h2>Ссылка на LinkedIn: </h2>
-            <h2><a href={detailData.linkedIn}>{detailData.linkedIn}</a></h2>
-          </blockquote>
-        </div>
+        {selectedMember && (
+          <div>
+            <button className={styles.close_button} onClick={handleCloseDetail}>
+              ✖
+            </button>
+            <blockquote>
+              <img src={selectedMember.profile_avatar} alt="" />
+            </blockquote>
+            <blockquote>
+              <h1>Студент №{selectedMember.id}</h1>
+              <h2>Имя: {selectedMember.name}</h2>
+              <h2>Работа: {selectedMember.employed ? 'имеется' : 'отсутствует'}</h2>
+              <h2>Ссылка на LinkedIn: </h2>
+              <h2>
+                <a href={selectedMember.linkedIn}>{selectedMember.linkedIn}</a>
+              </h2>
+            </blockquote>
+          </div>
+        )}
       </section>
     </main>
   );

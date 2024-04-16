@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../../components/Layout/header/Header';
 import styles from './startScreen.module.scss';
-import ModalStartScreen from '../../components/Modal/modalStartScreen/ModalStartScreen';
 import SignUpModal from '../../components/Modal/SignUpModal/SignUpModal';
+import Login from '../../components/Modal/LoginModal/Login';
 
 const StartScreen = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -38,12 +38,9 @@ const StartScreen = () => {
             <img src="/assets/jellyfish.png" alt="jellyfish" />
           </div>
         </div>
-        <ModalStartScreen active={modalActive} setActive={setModalActive} />
+        <Login active={modalActive} setActive={setModalActive} />
         <SignUpModal active={modalSignUpActive} setActive={setModalSignUpActive} />
-        <ModalStartScreen
-          activeRegistr={modalSignUpActive}
-          setActiveRegistr={setModalSignUpActive}
-        />
+        <Login activeRegistr={modalSignUpActive} setActiveRegistr={setModalSignUpActive} />
         <SignUpModal activeLogin={modalActive} setActiveLogin={setModalActive} />
       </main>
     </>

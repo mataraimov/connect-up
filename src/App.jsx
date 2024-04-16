@@ -18,6 +18,7 @@ const App = () => {
           <Route path="/" element={<Profile />} />
           <Route path="/mainpage" element={<MainPage />} />
           <Route path="/venetka" element={<VenetkaPage />} />
+          <Route path="*" element={<Navigate to="/mainpage" />} />
         </>
       ) : (
         <>

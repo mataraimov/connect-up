@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import './modalStartScreen.css';
-import { refreshAccessToken } from '../../utils/refreshAccessToken';
+import './Login.css';
 import { API_URL } from '../../utils/config';
 import axios from 'axios';
 import CustomNotification from '../../utils/Toasts/CustomNotification';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../utils/context';
 
-const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }) => {
+const Login = ({ active, setActive }) => {
   const { setAuthData } = useAuth();
 
   const [showSuccessNotification, setShowSuccessNotification] = useState(false);
@@ -20,7 +19,6 @@ const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }
 
   const onFinish = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(`${API_URL}/users/login/`, formData);
       localStorage.setItem('access_token', response.data.access);
@@ -116,4 +114,4 @@ const ModalStartScreen = ({ active, setActive, activeRegistr, setActiveRegistr }
   );
 };
 
-export default ModalStartScreen;
+export default Login;
