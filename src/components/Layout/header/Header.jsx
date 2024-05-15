@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import styles from './header.module.scss';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../utils/context';
+import styles from './header.module.scss';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { setAuthData } = useAuth();
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
   const logout = async () => {
     try {
       localStorage.clear();
@@ -19,60 +21,76 @@ const Header = () => {
       console.error(error);
     }
   };
+
   return (
     <header>
-      <div className={styles.header_wrap}>
-        <Link to="/">
-          <div className={styles.header_wrap__logo}>
-            <img
-              className={styles.img1}
-              alt="logo"
-              src="https://my.alatoo.edu.kg/images/logo_aiu.png"
-            />
-            <div className={styles.header_wrap__logo__spans}>
-              <span className={styles.span1}>Connect</span>
-              <span className={styles.span2}>UP</span>
-            </div>
-          </div>
-        </Link>
-
-        <div className={styles.menu_container}>
-          <div className={styles.menu_icon} onClick={toggleMenu}>
-            {menuOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="30px"
-                height="30px"
-              >
-                <path
-                  fill="#fff"
-                  d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+      <div className="darkheader">
+        <div className="container" style={{ paddingBottom: '17px' }}>
+          <div className="headerblockleft">
+            <div className="logoaddblock">
+              <Link to="/" className="mainlogo">
+                <img
+                  src="https://my.alatoo.edu.kg/images/logo_aiu.png"
+                  style={{ maxWidth: '100%', maxHeight: '58px' }}
+                  alt="American University of Central Asia - IAU - Alumni"
                 />
-              </svg>
-            ) : (
-              <img className={styles.menu_icon_img} src="./assets/menu.png" alt="menu" />
-            )}
-          </div>
-
-          {menuOpen && (
-            <div className={styles.menu}>
-              <ul>
-                <li>
-                  <Link to="/">Профиль</Link>
-                </li>
-                <li>
-                  <Link to="/group">Группа</Link>
-                </li>
-                <li>
-                  <Link to="/events">События</Link>
-                </li>
-                <li>
-                  <Link onClick={logout}>Логаут</Link>
-                </li>
-              </ul>
+              </Link>
             </div>
-          )}
+            <div className="logoblock">
+              <a href="/">
+                <img
+                  src="https://media.licdn.com/dms/image/C4E03AQHibu7GEjIwLQ/profile-displayphoto-shrink_200_200/0/1663907068590?e=2147483647&v=beta&t=0HMXlE4a6cXVutTCpoBV8-spLVuwp31ErW8wJzGEfkw"
+                  className="hidden-md hidden-sm hidden-xs"
+                  style={{ maxWidth: '100%', maxHeight: '58px' }}
+                  alt="American University of Central Asia - IAU - Alumni"
+                />
+                <img
+                  src="../../templates/_sources/logomini.png"
+                  className="visible-md visible-sm visible-xs"
+                  style={{ maxHeight: '58px' }}
+                  alt="American University of Central Asia - IAU - Alumni"
+                />
+              </a>
+            </div>
+          </div>
+          <div className="headerblockright">
+            <div className="headerbuttonsblock" style={{ marginTop: '17px' }}>
+              <div>
+                <a href="/directory_contacts/" className="headerlink">
+                  University Directory
+                </a>
+                <a
+                  href="/gethelp/"
+                  className="headerlink ewinlink"
+                  ewinoptions="width: '700px', height: '500px', type: 'ajax'"
+                >
+                  Get Help
+                </a>
+              </div>
+            </div>
+
+            <div
+              className="headerbuttonsblock"
+              style={{ marginTop: '12px', display: 'flex', justifyContent: 'space-between' }}
+            >
+              <form className="form" role="form" action="/search/" method="get">
+                <div className="input-group">
+                  <input
+                    type="text"
+                    placeholder="Search the site"
+                    className="form-control inpsearch"
+                    name="search"
+                    defaultValue=""
+                  />
+                  <span className="input-group-btn">
+                    <button type="submit" className="btn btn-primary butsearch">
+                      <span className="glyphicon glyphicon-search"></span>
+                    </button>
+                  </span>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </div>
     </header>

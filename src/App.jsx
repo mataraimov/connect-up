@@ -2,34 +2,28 @@ import React from 'react';
 import './App.css';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { useAuth } from './components/utils/context';
-import Profile from './pages/profile/Profile';
-import MainPage from './pages/mainPage/MainPage';
+import DonationPage from './pages/DonationPage/DonationPage';
 import StartScreen from './pages/startScreeen/StartScreen';
-import VenetkaPage from './pages/venetkaPage/venetka';
 import EventPage from './pages/events/Events';
-
+import MainFooter from './components/Layout/footer/Footer';
+import Header from './components/Layout/header/Header';
 const App = () => {
   const { authData } = useAuth();
   const { isAuth } = authData;
 
   return (
-    <Routes>
-      {isAuth ? (
-        <>
-          <Route path="/" element={<Profile />} />
-          <Route path="/mainpage" element={<MainPage />} />
+    <>
+      <Header />
+      <main style={{ minHeight: '100vh' }}>
+        <Routes>
+          <Route path="/givingalumni" element={<DonationPage />} />
           <Route path="/events" element={<EventPage />} />
-          <Route path="/venetka" element={<VenetkaPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<Navigate to="/mainpage" />} />
-        </>
-      ) : (
-        <>
           <Route path="/startscreen" element={<StartScreen />} />
           <Route path="*" element={<Navigate to="/startscreen" />} />
-        </>
-      )}
-    </Routes>
+        </Routes>
+      </main>
+      <MainFooter />
+    </>
   );
 };
 
