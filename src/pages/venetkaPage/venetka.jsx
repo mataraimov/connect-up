@@ -39,8 +39,8 @@ function VenetkaPage() {
     setDisSect2('none');
   };
   useEffect(() => {
-    handleCreateAddNewUser()
-  }, [])
+    handleCreateAddNewUser();
+  }, []);
   console.log(groupData);
 
   return (
@@ -62,7 +62,10 @@ function VenetkaPage() {
           {groupData &&
             groupData.group_member.map((member, index) => (
               <div key={index} onClick={() => handleItemClick(member)}>
-                <img src={member.profile_avatar} alt="" />
+                <img
+                  src="https://img.freepik.com/premium-vector/student-avatar-illustration-user-profile-icon-youth-avatar_118339-4401.jpg?w=1380"
+                  alt=""
+                />
                 <blockquote>
                   <h2>{member.name}</h2>
                   <p>{member.quote}</p>
@@ -78,7 +81,11 @@ function VenetkaPage() {
               ✖
             </button>
             <blockquote>
-              <img src={selectedMember?.profile_avatar} alt="" />
+              <img
+                style={{ width: 300, height: 300 }}
+                src="https://img.freepik.com/premium-vector/student-avatar-illustration-user-profile-icon-youth-avatar_118339-4401.jpg?w=1380"
+                alt=""
+              />
             </blockquote>
             <blockquote>
               <h1>Студент №{selectedMember?.id}</h1>
@@ -90,7 +97,9 @@ function VenetkaPage() {
               </h2>
             </blockquote>
           </div>
-        ): 'loading...'}
+        ) : (
+          'loading...'
+        )}
       </section>
     </main>
   );
