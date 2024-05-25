@@ -85,7 +85,7 @@ const DonationPage = () => {
       </p>
       <p>
         Note: US taxpayers, your contribution is tax-deductible to the extent allowed by law. Please
-        contact AUCA Foundation for more information.
+        contact IAU Foundation for more information.
       </p>
 
       <form onSubmit={handleSubmit}>
@@ -239,7 +239,7 @@ const DonationPage = () => {
                 <div className="col-md-6">
                   <div className="form-group">
                     <label for="classYearInput">
-                      Class Year of graduation from AUCA (if applicable)
+                      Class Year of graduation from IAU (if applicable)
                     </label>
                     <input
                       type="number"
@@ -253,7 +253,7 @@ const DonationPage = () => {
                 </div>
                 <div className="col-md-6">
                   <div className="form-group">
-                    <label for="programInput">Program of study at AUCA (if applicable)</label>
+                    <label for="programInput">Program of study at IAU (if applicable)</label>
                     <input
                       type="text"
                       className="form-control"
@@ -309,7 +309,7 @@ const DonationPage = () => {
         <div className="mt-3">
           <p>
             If you have questions, please contact the Development office, by phone at
-            +996-312-915000 ext. 104 or email development@auca.kg.
+            +996-312-915000 ext. 104 or email development@IAU.kg.
           </p>
         </div>
       </form>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import OurValues from './OurValues';
 
 const HomePage = () => {
@@ -133,13 +134,13 @@ const HomePage = () => {
 
           <div style={{ marginTop: '15px' }}>
             <div style={{ textAlign: 'center' }}>
-              <a
+              <Link
                 className="btn btn-primary"
                 style={{ backgroundColor: '#b71c1c', borderColor: '#b71c1c' }}
-                href="/givingalumni/"
+                to="/givingalumni"
               >
                 Donate to Alumni Fund
-              </a>
+              </Link>
             </div>
           </div>
         </div>
