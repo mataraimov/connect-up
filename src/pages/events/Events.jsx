@@ -1,169 +1,111 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../../components/Layout/header/Header';
-import axios from 'axios';
-import { API_URL } from '../../components/utils/config';
-import { refreshAccessToken } from '../../components/utils/refreshAccessToken';
-import './event.scss';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Events.scss';
+const events = [
+  {
+    id: 1,
+    title: 'Unrestricted Fund',
+    description:
+      'The AUCA Annual Unrestricted Fund contributes to the daily running of the university.',
+    link: '/event-detail/1',
+    image: 'https://source.unsplash.com/random/400x300/?education',
+  },
+  {
+    id: 2,
+    title: 'Scholarships',
+    description:
+      'Sponsoring a scholarship can help one or many AUCA students ease their financial burden.',
+    link: '/event-detail/2',
+    image: 'https://source.unsplash.com/random/400x300/?university',
+  },
+  {
+    id: 3,
+    title: 'New Generation Academy (NGA)',
+    description:
+      'The NGA has been a crucial stepping stone for the success of 583 university students from the regions over the past 5 years.',
+    link: '/event-detail/3',
+    image: 'https://source.unsplash.com/random/400x300/?learning',
+  },
+  {
+    id: 4,
+    title: 'Fatima Khailil Scholarship Fundraising Drive',
+    description:
+      'The American University of Central Asia is pleased to announce the start of the fundraising drive for a new scholarship fund in memory of Fatima Khalil to commemorate her rich but all too brief life.',
+    link: '/event-detail/4',
+    image: 'https://source.unsplash.com/random/400x300/?scholarship',
+  },
+  {
+    id: 5,
+    title: 'Student Initiative Development Program (SIDP)',
+    description:
+      'Out of 15 projects, 10 projects were implemented in the education sector, 2 projects focused on promoting art, and 3 projects focused on teaching business skills.',
+    link: '/event-detail/5',
+    image: 'https://source.unsplash.com/random/400x300/?education',
+  },
+  {
+    id: 6,
+    title: 'Library and Technology Development',
+    description:
+      'The AUCA Library supports faculty and researchers by providing access to a variety of information sources and formats.',
+    link: '/event-detail/6',
+    image: 'https://source.unsplash.com/random/400x300/?books',
+  },
+  {
+    id: 7,
+    title: 'Student Travel Grants',
+    description:
+      'Student Travel Grants support either AUCA students or faculty to pursue their academic interests outside of the Kyrgyz Republic.',
+    link: '/event-detail/7',
+    image: 'https://source.unsplash.com/random/400x300/?students',
+  },
+  {
+    id: 8,
+    title: 'Staff Development',
+    description:
+      'AUCA is ever striving to be more efficient with its staff, while still maintaining the same level of service that students, faculty, and friends have come to expect.',
+    link: '/event-detail/8',
+    image: 'https://source.unsplash.com/random/400x300/?education',
+  },
+  {
+    id: 9,
+    title: 'Faculty Development',
+    description:
+      "AUCA's faculty is young and talented, and on their hard work AUCA will build a world-class research hub in Central Asia.",
+    link: '/event-detail/9',
+    image: 'https://source.unsplash.com/random/400x300/?education',
+  },
+];
 
-const EventsPage = () => {
-  const [event, setEvent] = useState({
-    event_name: '',
-    event_description: '',
-    event_date: '',
-    event_place: '',
-  });
-  const [eventId, setEventId] = useState(null);
-  const [loadedEvent, setLoadedEvent] = useState(null);
-
-  useEffect(() => {
-    // Функция для загрузки первого события и установки его в состояние event
-    const fetchFirstEvent = async () => {
-      try {
-        await refreshAccessToken();
-        const response = await axios.get(`${API_URL}/events/detail/1/`); // Запрос на первое событие
-        const firstEvent = response.data;
-        setEvent({
-          event_name: firstEvent.event_name,
-          event_description: firstEvent.event_description,
-          event_date: firstEvent.event_date,
-          event_place: firstEvent.event_place,
-        });
-        setEventId(firstEvent.id);
-        setLoadedEvent(firstEvent);
-      } catch (error) {
-        console.error('Error fetching first event:', error);
-      }
-    };
-
-    fetchFirstEvent(); // Вызов функции при монтировании компонента
-  }, []); // Пустой массив зависимостей, чтобы useEffect вызывался только один раз при монтировании
-
-  const handleCreateEvent = async () => {
-    // Функция для создания события
-    try {
-      await refreshAccessToken();
-      const response = await axios.post(
-        `${API_URL}/events/create/`,
-        {
-          ...event,
-          event_status: true,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          },
-        },
-      );
-      console.log('Event created:', response.data);
-      setEventId(response.data.id);
-    } catch (error) {
-      console.error('Error creating event:', error);
-    }
-  };
-
-  const handleGetEventDetail = async () => {
-    // Функция для получения деталей события
-    try {
-      await refreshAccessToken();
-      const response = await axios.get(`${API_URL}/events/detail/${eventId}/`);
-      console.log('Event detail:', response.data);
-      setLoadedEvent(response.data);
-    } catch (error) {
-      console.error('Error getting event detail:', error);
-    }
-  };
-
-  const handleUpdateEvent = async () => {
-    // Функция для обновления события
-    try {
-      await refreshAccessToken();
-      const response = await axios.patch(
-        `${API_URL}/events/detail/${eventId}/`,
-        {
-          ...event,
-          event_owner: loadedEvent.event_owner,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          },
-        },
-      );
-      console.log('Event updated:', response.data);
-      // Обновляем данные загруженного события
-      handleGetEventDetail();
-    } catch (error) {
-      console.error('Error updating event:', error);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    // Обработчик изменения значения в инпуте
-    const { name, value } = e.target;
-    setEvent((prevEvent) => ({
-      ...prevEvent,
-      [name]: value,
-    }));
-  };
-
+const EventCard = ({ event }) => {
   return (
-    <>
-      <Header />
-      <main>
-        <div className="events-container">
-          <div className="events-form">
-            <h2>Create Event</h2>
-            <input
-              type="text"
-              name="event_name"
-              placeholder="Event Name"
-              value={event.event_name}
-              onChange={handleInputChange}
-            />
-            <textarea
-              name="event_description"
-              placeholder="Event Description"
-              value={event.event_description}
-              onChange={handleInputChange}
-            />
-            <input
-              type="date"
-              name="event_date"
-              placeholder="Event Date"
-              value={event.event_date}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="event_place"
-              placeholder="Event Place"
-              value={event.event_place}
-              onChange={handleInputChange}
-            />
-            <button onClick={handleCreateEvent}>Create Event</button>
-          </div>
-          <div className="events-detail">
-            <h2>Event Detail</h2>
-            {loadedEvent && (
-              <>
-                <h2>Event Name: {loadedEvent.event_name}</h2>
-                <h2>Event Description: {loadedEvent.event_description}</h2>
-                <h2>Event Date: {loadedEvent.event_date}</h2>
-                <h2>Event Place: {loadedEvent.event_place}</h2>
-              </>
-            )}
-            {eventId && (
-              <>
-                <button onClick={handleGetEventDetail}>Load Event Detail</button>
-                <h3>Update Event</h3>
-                <button onClick={handleUpdateEvent}>Update Event</button>
-              </>
-            )}
-          </div>
+    <div className="col-sm-6 col-md-4">
+      <div className="thumbnail animated-card">
+        <img src={event.image} alt={event.title} className="img-responsive" />
+        <div className="caption">
+          <h3 className={'truncated-text-1'}>{event.title}</h3>
+          <p className={'truncated-text'}>{event.description}</p>
+          <p>
+            <Link to={event.link} className="btn btn-primary" role="button">
+              Read more
+            </Link>
+          </p>
         </div>
-      </main>
-    </>
+      </div>
+    </div>
   );
 };
 
-export default EventsPage;
+const Events = () => {
+  return (
+    <div className="container">
+      <h1 className="text-center animated-header">Donate to an Event</h1>
+      <div className="row">
+        {events.map((event, index) => (
+          <EventCard key={index} event={event} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Events;

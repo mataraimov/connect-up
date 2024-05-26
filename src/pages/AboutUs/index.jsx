@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import OurValues from './OurValues';
 
-const HomePage = () => {
+const AboutUs = () => {
   return (
     <div className="container" style={{ marginTop: '30px' }}>
       <div className="row">
@@ -137,7 +137,7 @@ const HomePage = () => {
               <Link
                 className="btn btn-primary"
                 style={{ backgroundColor: '#b71c1c', borderColor: '#b71c1c' }}
-                to="/givingalumni"
+                to="/donate"
               >
                 Donate to Alumni Fund
               </Link>
@@ -148,4 +148,4 @@ const HomePage = () => {
     </div>
   );
 };
-export default HomePage;
+export default AboutUs;

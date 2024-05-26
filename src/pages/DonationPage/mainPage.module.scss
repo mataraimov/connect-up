@@ -1,0 +1,63 @@
+.animated-header {
+  animation: fadeInDown 2s;
+}
+
+.form-group, .form-check, .input-group, .alert, .btn {
+  animation: fadeIn 1.5s;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.container {
+  max-width: 900px;
+}
+
+h3 {
+  color: #007bff;
+}
+
+.input-group-prepend .input-group-text {
+  background-color: #007bff;
+  color: white;
+  }
+  
+  .form-control, .form-check-input {
+  border-radius: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  }
+  
+  .btn-lg {
+  background-color: #007bff;
+  border: none;
+  transition: background-color 0.3s ease;
+  }
+  
+  .btn-lg:hover {
+  background-color: #0056b3;
+  }
+  
+  textarea {
+  resize: none;
+  }

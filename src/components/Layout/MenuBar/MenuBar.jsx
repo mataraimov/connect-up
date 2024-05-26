@@ -1,95 +1,72 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import './MenuBar.css'; // Убедитесь, что стили импортированы
 
 const MenuBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation(); // Получаем текущий путь
 
   useEffect(() => {
     const handleResize = () => {
-      // Проверяем ширину окна и закрываем меню, если она достаточно узкая
       if (window.innerWidth <= 768 && menuOpen) {
         setMenuOpen(false);
       }
     };
-
-    // Добавляем слушатель изменения размера окна
     window.addEventListener('resize', handleResize);
-
-    // Очищаем слушатель при размонтировании компонента
     return () => window.removeEventListener('resize', handleResize);
-  }, [menuOpen]); // Зависимость эффекта от состояния menuOpen
+  }, [menuOpen]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
+  const isActive = (path) => location.pathname === path;
+  useEffect(() => {
+    console.log(isActive('/events'));
+  }, []);
+
   return (
-    <div id="fixedactionsbox">
-      <div className="navbar navbar-inverse menunav dark" role="navigation" id="fixedactions">
-        <div className="container">
-          <div className="navbar-header">
-            <button type="button" className="navbar-toggle menumobile" onClick={toggleMenu}>
-              <span className="sr-only">Toggle navigation</span>
-              Menu <span style={{ fontSize: '150%' }}>☰</span>
-            </button>
-          </div>
-          <div className={`navbar-collapse collapse ${menuOpen ? 'in' : ''}`} id="checkmenuwidth">
-            <div id="checkmenublock">
-              <a href="index.html" className="menu checkmenulink menuselected">
-                <span className="glyphicon glyphicon-home" style={{ lineHeight: '50%' }}></span>
+    <div id="fixedactionsbox" className="navbar navbar-inverse menunav dark" role="navigation">
+      <div className="container">
+        <div className="navbar-header">
+          <button
+            style={{ color: 'black', backgroundColor: '#908eef' }}
+            type="button"
+            className="navbar-toggle menumobile"
+            onClick={toggleMenu}
+          >
+            <span className="sr-only">Toggle navigation</span>
+            menu
+          </button>
+        </div>
+        <div className={`navbar-collapse collapse ${menuOpen ? 'in' : ''}`} id="checkmenuwidth">
+          <ul className="nav navbar-nav navbar-center">
+            <li className={isActive('/events') ? 'active' : ''}>
+              <a className="menu" href="/events">
+                news{'&'}Events
               </a>
-              <a href="/association/" className="menu checkmenulink checkmenusepar">
-                MEMBERSHIP
+            </li>
+            <li className={isActive('/about') ? 'active' : ''}>
+              <a className="menu" href="/about">
+                About us
               </a>
-              <a href="/benefits/" className="menu checkmenulink checkmenusepar">
-                BENEFITS
+            </li>
+            <li className={isActive('/consuls') ? 'active' : ''}>
+              <a className="menu" href="/consuls">
+                Council
               </a>
-              <a href="/engage/" className="menu checkmenulink checkmenusepar">
-                GET INVOLVED
+            </li>
+            <li className={isActive('/fund') ? 'active' : ''}>
+              <a className="menu" href="/fund">
+                Fund
               </a>
-              <a href="/ambassadors/" className="menu checkmenulink checkmenusepar">
-                WORLDWIDE
+            </li>
+            <li className={isActive('/contacts') ? 'active' : ''}>
+              <a className="menu" href="/contacts">
+                Contact
               </a>
-              <a href="/alcouncil/" className="menu checkmenulink checkmenusepar">
-                COUNCIL
-              </a>
-              <a href="/alumni_fund/" className="menu checkmenulink checkmenusepar">
-                Alumni Fund
-              </a>
-              <a href="/alumni_scholarship/" className="menu checkmenulink checkmenusepar">
-                Scholarship
-              </a>
-              <a href="/alumni_contacts/" className="menu checkmenulink checkmenusepar">
-                Contact us
-              </a>
-            </div>
-            <div
-              className="dropdown checkmenusepar"
-              id="checkmenuaddlink"
-              style={{ float: 'left', display: 'none' }}
-            >
-              <button
-                className="btn btn-default dropdown-toggle menu"
-                style={{
-                  background: '0',
-                  border: '0',
-                  padding: '10px 10px 6px 10px',
-                  width: '34px',
-                }}
-                type="button"
-                id="dropdownMenu1"
-                data-toggle="dropdown"
-                aria-expanded="true"
-              >
-                <span className="glyphicon glyphicon-chevron-down"></span>
-              </button>
-              <div
-                className="dropdown-menu bluebg"
-                id="dropdownmenu"
-                role="menu"
-                aria-labelledby="dropdownMenu1"
-              ></div>
-            </div>
-          </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

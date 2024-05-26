@@ -1,0 +1,35 @@
+/* Центрирование элементов меню */
+.navbar-center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.navbar-nav > li {
+  transition: transform 0.5s;
+}
+
+.navbar-nav > li:hover {
+  transform: scale(1.1); /* Увеличение при наведении */
+}
+
+.menu {
+  color: var(--co1); /* Добавьте ваш цвет */
+  text-transform: uppercase;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.menu:hover, .menu:active, .menu:focus {
+  color: white;
+  background-color: var(--co1);
+  text-decoration: none;
+}
+
+.menuselected, .navbar-nav > .active > a {
+  background-color: var(--co1);
+  color: white;
+}
+
+ 

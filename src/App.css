@@ -1,11 +1,11 @@
 :root {
-	--co1: #efdf8e; /* Gold */
-	--co2: #2D2753; /* Dark Blue */
+	--co1: #908eef; /* Gold */
+	--co2: #6d5fca; /* Dark Blue */
 	--co3: #d3bc4b; /* Yellow */
 	--co4: #d3bc4b; /* Dark Gold */
 	--co5: #000000; /* Black */
 	/* --co6: #273c6d; */ /* Blue */
-	--co6: #6f42c1; /* Blue */
+	--co6: #f5efef; /* Blue */
 	--co7: #b71c1c; /* Red */
 	--co8: #d71c1c; /* Red Light */
 	--co9: #f6d321; /* Yellow */
@@ -943,22 +943,23 @@ a.langs:hover {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 12px;
 	font-weight: 600;
-	float: left;
+	float:right;
 	padding: 11px 10px;
-	border: 0;
+	border: none;
 	border-radius: 0;
 	text-decoration: none;
 	text-transform: uppercase;
 }
 .menu:hover, .menu:active, .menu:focus {
 	text-decoration: none;
-	color: black;
+	color: white;
+
 	background-color: var(--co1) !important;
 	text-transform: uppercase;
 }
 .menuselected {
 	text-decoration: none;
-	color: black;
+	color: white;
 	background-color: var(--co1);
 }
 .checkmenusepar {
