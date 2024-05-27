@@ -14,7 +14,7 @@ import Council from './pages/Council';
 import Contacts from './pages/Contacts';
 import AlumniFund from './pages/Fund';
 import Revenues from './pages/Revenues';
-import Events from './pages/Events';
+import Events from './pages/events';
 
 const App = () => {
   const { authData } = useAuth();
