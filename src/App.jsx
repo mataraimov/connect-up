@@ -13,6 +13,7 @@ import EventDetail from './pages/Events/EventDetail';
 import Council from './pages/Council';
 import Contacts from './pages/Contacts';
 import AlumniFund from './pages/Fund';
+import Revenues from './pages/Revenues';
 const App = () => {
   const { authData } = useAuth();
   const { isAuth } = authData;
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/donate" element={<DonationPage />} />
           <Route path="/admin-events" element={<AdminPanel />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/revenues" element={<Revenues />} />
           <Route path="/council" element={<Council />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/fund" element={<AlumniFund />} />

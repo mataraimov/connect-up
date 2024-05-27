@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Row, Col, Card, Typography } from 'antd';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { Layout, Row, Col, Card, Typography, Image } from 'antd';
+// import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import { EnvironmentOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 import './Contact.css'; // Create a CSS file for custom styles
 
@@ -8,37 +8,37 @@ const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
 const Contact = () => {
-  const [coords, setCoords] = useState([42.8746, 74.6122]); // Default to Bishkek coordinates
+  // const [coords, setCoords] = useState([42.8746, 74.6122]); // Default to Bishkek coordinates
 
-  useEffect(() => {
-    const address = '1/8 ул. Анкара, Бишкек';
-    getCoordinatesByAddress(address).then((coords) => {
-      if (coords) {
-        setCoords([coords.latitude, coords.longitude]);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   const address = '1/8 ул. Анкара, Бишкек';
+  //   getCoordinatesByAddress(address).then((coords) => {
+  //     if (coords) {
+  //       setCoords([coords.latitude, coords.longitude]);
+  //     }
+  //   });
+  // }, []);
 
-  function getCoordinatesByAddress(address) {
-    const YANDEX_API_KEY = 'bf926d03-993e-4625-916e-6280dcbc2248';
-    const YANDEX_GEOCODER_API = `https://geocode-maps.yandex.ru/1.x/?apikey=${YANDEX_API_KEY}&format=json&geocode=`;
+  // function getCoordinatesByAddress(address) {
+  //   const YANDEX_API_KEY = 'bf926d03-993e-4625-916e-6280dcbc2248';
+  //   const YANDEX_GEOCODER_API = `https://geocode-maps.yandex.ru/1.x/?apikey=${YANDEX_API_KEY}&format=json&geocode=`;
 
-    return fetch(YANDEX_GEOCODER_API + encodeURIComponent(address))
-      .then((response) => response.json())
-      .then((data) => {
-        const position = data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
-          .split(' ')
-          .map(Number)
-          .reverse();
-        return {
-          latitude: position[0],
-          longitude: position[1],
-        };
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  //   return fetch(YANDEX_GEOCODER_API + encodeURIComponent(address))
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       const position = data.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos
+  //         .split(' ')
+  //         .map(Number)
+  //         .reverse();
+  //       return {
+  //         latitude: position[0],
+  //         longitude: position[1],
+  //       };
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -105,11 +105,7 @@ const Contact = () => {
         </Row>
 
         <div className="map-container">
-          <YMaps>
-            <Map defaultState={{ center: coords, zoom: 14 }} width="100%" height="400px">
-              {coords && <Placemark geometry={coords} />}
-            </Map>
-          </YMaps>
+          <Image src="https://i.ibb.co/Fh5XGd8/2024-05-27-21-27-35.png" />
         </div>
       </Content>
     </Layout>
