@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './MenuBar.css'; // Убедитесь, что стили импортированы
 
 const MenuBar = () => {
@@ -42,34 +42,34 @@ const MenuBar = () => {
         <div className={`navbar-collapse collapse ${menuOpen ? 'in' : ''}`} id="checkmenuwidth">
           <ul className="nav navbar-nav navbar-center">
             <li className={isActive('/events') ? 'active' : ''}>
-              <a className="menu" href="/events">
+              <Link className="menu" to="/events">
                 news{'&'}Events
-              </a>
+              </Link>
             </li>
             <li className={isActive('/about') ? 'active' : ''}>
-              <a className="menu" href="/about">
+              <Link className="menu" to="/about">
                 About us
-              </a>
+              </Link>
             </li>
             <li className={isActive('/council') ? 'active' : ''}>
-              <a className="menu" href="/council">
+              <Link className="menu" to="/council">
                 Council
-              </a>
+              </Link>
             </li>
             <li className={isActive('/fund') ? 'active' : ''}>
-              <a className="menu" href="/fund">
+              <Link className="menu" to="/fund">
                 Fund
-              </a>
+              </Link>
             </li>
             <li className={isActive('/revenues') ? 'active' : ''}>
-              <a className="menu" href="/revenues">
+              <Link className="menu" to="/revenues">
                 Donations
-              </a>
+              </Link>
             </li>
             <li className={isActive('/contacts') ? 'active' : ''}>
-              <a className="menu" href="/contacts">
+              <Link className="menu" to="/contacts">
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
