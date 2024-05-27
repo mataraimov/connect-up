@@ -1,0 +1,27 @@
+.alumni-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.alumni-image {
+  max-width: 200px;
+  margin-right: 20px;
+}
+
+.alumni-info {
+  flex: 1;
+}
+
+.contact-cards {
+  margin-bottom: 50px;
+}
+
+.contact-card {
+  text-align: center;
+  font-size: 16px;
+}
+
+.map-container {
+  margin-top: 50px;
+}

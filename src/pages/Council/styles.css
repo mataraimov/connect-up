@@ -1,0 +1,27 @@
+
+.ant-layout-header {
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.ant-typography {
+  margin-bottom: 20px;
+}
+
+.ant-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ant-card-body {
+  padding: 24px;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.site-layout-background {
+  background: #fff;
+}

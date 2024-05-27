@@ -16,3 +16,12 @@
 .full-text {
   display: block;
 }
+// .thumbnail{
+//   min-height: 50px; 
+// }
+
+.img-responsive {
+  width: 400px !important; 
+  height: 300px !important; 
+  object-fit: cover; // Ensures the image covers the area without distortion
+}

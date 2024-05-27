@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MainFooter = () => {
   return (
@@ -123,6 +124,9 @@ const MainFooter = () => {
                   </li>
                   <li>
                     <a href="#">Вакансии</a>
+                  </li>
+                  <li>
+                    <Link to="/admin-events">Админ</Link>
                   </li>
                 </ul>
               </div>

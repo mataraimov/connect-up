@@ -51,8 +51,8 @@ const MenuBar = () => {
                 About us
               </a>
             </li>
-            <li className={isActive('/consuls') ? 'active' : ''}>
-              <a className="menu" href="/consuls">
+            <li className={isActive('/council') ? 'active' : ''}>
+              <a className="menu" href="/council">
                 Council
               </a>
             </li>
