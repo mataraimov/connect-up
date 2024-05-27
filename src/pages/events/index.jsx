@@ -87,7 +87,7 @@ const EventCard = ({ event }) => {
           <h3 className={'truncated-text-1'}>{event.Title}</h3>
           <p className={'truncated-text'}>{event.Description}</p>
           <p>
-            <Link to={`event/${event.id}`} className="btn btn-primary" role="button">
+            <Link to={`/event-detail/${event.id}`} className="btn btn-primary" role="button">
               Read more
             </Link>
           </p>
