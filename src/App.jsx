@@ -8,12 +8,13 @@ import Header from './components/Layout/header/Header';
 import MenuBar from './components/Layout/MenuBar/MenuBar';
 import AboutUs from './pages/AboutUs';
 import AdminPanel from './pages/Admin/AdminEvents';
-import Events from './pages/Events/Events';
+// import Events from './pages/Events/Events';
 import EventDetail from './pages/Events/EventDetail';
 import Council from './pages/Council';
 import Contacts from './pages/Contacts';
 import AlumniFund from './pages/Fund';
 import Revenues from './pages/Revenues';
+import Events from './pages/events/Events';
 const App = () => {
   const { authData } = useAuth();
   const { isAuth } = authData;
