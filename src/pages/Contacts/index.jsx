@@ -45,7 +45,7 @@ const Contact = () => {
       <Content style={{ padding: '50px' }}>
         <div className="alumni-header">
           <img
-            src="https://lh3.googleusercontent.com/proxy/RMxRr5kOx3kqMyz5zJ1ZICKVIqrHaC8uGPpxrpxIObJtnflw-fcV9fZ05B8p7-mE9wqgqAZYQm00fVDgxWw1ZdWKY69LR_55tJlZcwIwapc8F7B2z3Mh"
+            src="https://i.ibb.co/LpsD0pj/unnamed.jpg"
             alt="Alumni Center"
             className="alumni-image"
           />
