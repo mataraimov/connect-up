@@ -15,6 +15,7 @@ import Contacts from './pages/Contacts';
 import AlumniFund from './pages/Fund';
 import Revenues from './pages/Revenues';
 import Events from './pages/events';
+import DonorDetails from './pages/Revenues/RevenueDetails';
 
 const App = () => {
   const { authData } = useAuth();
@@ -34,8 +35,9 @@ const App = () => {
           <Route path="/council" element={<Council />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/fund" element={<AlumniFund />} />
+          <Route path="/donor/:id" element={<DonorDetails />} />
           <Route path="/event-detail/:id" element={<EventDetail />} />
-          <Route path="*" element={<Navigate to="/events" />} />
+          <Route path="*" element={<Navigate to="/about" />} />
         </Routes>
       </main>
       <MainFooter />

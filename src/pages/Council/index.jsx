@@ -14,8 +14,7 @@ const consuls = [
     year: '2007',
     department: 'Business Administration',
     work: 'City Center LLC CFO',
-    imageQuery:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1073.jpg',
+    ImageLink: 'https://i.pinimg.com/564x/0e/ce/43/0ece433585728dfa604ec7809e5c2a05.jpg',
   },
   {
     name: 'Aidai Toktomambetova',
@@ -23,8 +22,7 @@ const consuls = [
     year: '2020',
     department: 'Business Administration',
     work: 'Umai Group LLC, Globus store chain, Narodny, Dostor SPAR',
-    imageQuery:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1073.jpg',
+    ImageLink: 'https://i.pinimg.com/564x/0e/ce/43/0ece433585728dfa604ec7809e5c2a05.jpg',
   },
   {
     name: 'Alina Murzaeva',
@@ -32,8 +30,7 @@ const consuls = [
     year: '2007',
     department: 'International and Comparative Politics',
     work: 'Consultant on strategic communication and advocacy',
-    imageQuery:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1073.jpg',
+    ImageLink: 'https://i.pinimg.com/564x/0e/ce/43/0ece433585728dfa604ec7809e5c2a05.jpg',
   },
   {
     name: 'Maria Tsvetkova',
@@ -41,8 +38,7 @@ const consuls = [
     year: '2011',
     department: 'Business Administration',
     work: 'Software Developer',
-    imageQuery:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1073.jpg',
+    ImageLink: 'https://i.pinimg.com/564x/0e/ce/43/0ece433585728dfa604ec7809e5c2a05.jpg',
   },
   {
     name: 'Ilkham Imarakhunov',
@@ -50,15 +46,14 @@ const consuls = [
     year: '2010',
     department: 'American Studies',
     work: 'Program Manager, Search for Common Ground',
-    imageQuery:
-      'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1073.jpg',
+    ImageLink: 'https://i.pinimg.com/564x/0e/ce/43/0ece433585728dfa604ec7809e5c2a05.jpg',
   },
 ];
 
 const ConsulCard = ({ consul }) => (
   <Card style={{ marginBottom: 20 }}>
     <Card.Meta
-      avatar={<img src={consul.image} alt={consul.name} className="avatar" />}
+      avatar={<img src={consul.ImageLink} alt={consul.name} className="avatar" />}
       title={consul.name}
       description={
         <>

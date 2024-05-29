@@ -36,12 +36,12 @@ const Revenues = () => {
   const columns = [
     {
       title: 'Имя',
-      dataIndex: 'name',
+      dataIndex: 'firstName',
       key: 'name',
     },
     {
       title: 'Фамилия',
-      dataIndex: 'surname',
+      dataIndex: 'lastName',
       key: 'surname',
     },
     {

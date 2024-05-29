@@ -41,14 +41,14 @@ const MenuBar = () => {
         </div>
         <div className={`navbar-collapse collapse ${menuOpen ? 'in' : ''}`} id="checkmenuwidth">
           <ul className="nav navbar-nav navbar-center">
-            <li className={isActive('/events') ? 'active' : ''}>
-              <Link className="menu" to="/events">
-                news{'&'}Events
-              </Link>
-            </li>
             <li className={isActive('/about') ? 'active' : ''}>
               <Link className="menu" to="/about">
                 About us
+              </Link>
+            </li>
+            <li className={isActive('/events') ? 'active' : ''}>
+              <Link className="menu" to="/events">
+                news{'&'}Events
               </Link>
             </li>
             <li className={isActive('/council') ? 'active' : ''}>

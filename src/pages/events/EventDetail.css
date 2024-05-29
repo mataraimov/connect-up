@@ -1,0 +1,33 @@
+.alumni-fund-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.payment-logo {
+  max-width: 100px;
+  margin: auto;
+  display: block;
+}
+
+.donation-card, .contact-card, .support-card {
+  text-align: center;
+  padding: 20px;
+}
+
+.donation-card p, .support-card p {
+  margin-top: 10px;
+}
+
+.event-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.event-details {
+  margin-top: 20px;
+}
+
+.contact-info {
+  text-align: center;
+}
