@@ -1,109 +1,81 @@
-.modal {
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0;
-  left: 0;
+.login-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.5s;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  animation: backgroundFade 5s infinite alternate;
 }
 
-.modal.active {
-  pointer-events: all;
-  opacity: 1;
+@keyframes backgroundFade {
+  0% {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+  }
+  100% {
+    background: linear-gradient(135deg, #a777e3, #6e8efb);
+  }
 }
 
-.modal__content {
-  padding: 5px;
-  border-radius: 2px;
-  background: #927efa;
+.login-form {
+  background: #fff;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.login-title {
+  font-size: 24px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 400px;
-  height: 380px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
+  animation: slideInDown 1s ease-in-out;
 }
 
-.modal__content .span1 {
-  padding-top: 80px;
-  color: #ffffff;
-  font-size: 22px;
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.modal__content .wrap .buttons {
-  padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.form {
+  max-width: 300px;
+  margin: 0 auto;
 }
 
-button {
-  margin-top: 10px;
-  font-size: 17px;
-  color: #ffffff;
-  background: #00ac83;
-  border: none;
-  padding: 15px;
-  width: 200px;
-  transition: background-color 0.3s;
-  font-size: 13px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: #077c53;
-}
-
-.modal__content .inputs {
-  padding-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  align-items: center;
-}
-
-.modal__content .inputs input {
-  width: 300px;
-  padding: 10px;
-  border: none;
+.input-field {
+  height: 40px;
   border-radius: 5px;
-  outline: none;
-  background: #fbfbfb;
 }
 
-.modal__content .registr {
-  margin-top: 60px;
+.login-button {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  background: #4a90e2;
+  border: none;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
-.modal__content .registr .span1 {
-  color: #ffffff;
-  font-size: 16px;
-}
-
-.modal__content .registr .span2 {
-  cursor: pointer;
-  color: rgb(16, 16, 120);
-}
-
-.qwerty,
-.otmena {
-  color: #ffffff;
-  padding-left: 370px;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.qwerty:hover,
-.otmena:hover {
-  color: #dad5d5;
-}
-
-.modal__content.active {
-  transform: scale(1);
+.login-button:hover {
+  background: #357ab8;
 }
