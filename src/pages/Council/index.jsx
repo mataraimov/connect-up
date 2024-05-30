@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Card, Row, Col, Typography, Form, Input, Button } from 'antd';
+import React from 'react';
+import { Layout, Card, Row, Col, Typography, Form, Input, Button } from 'antd';
 
-import './styles.css'; // Create and link this file for additional styles
-import { fetchRandomImage } from '../../services/unsplashService';
-
+import './styles.css';
 const { Header, Content, Sider } = Layout;
 const { Title, Paragraph } = Typography;
 
