@@ -58,8 +58,8 @@ const MenuBar = () => {
                 Fund
               </Link>
             </li>
-            <li className={isActive('/revenues') ? 'active' : ''}>
-              <Link className="menu" to="/revenues">
+            <li className={isActive('/donations') ? 'active' : ''}>
+              <Link className="menu" to="/donations">
                 Donations
               </Link>
             </li>

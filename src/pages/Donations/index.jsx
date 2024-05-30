@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import IncomeTraffic from './incomeTraffic';
 import { mockDonations } from './mockData';
 
-const Revenues = () => {
+const Donations = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ const Revenues = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Simulate an API call
       setTimeout(() => {
         setData(mockDonations);
         setLoading(false);
@@ -86,4 +85,4 @@ const Revenues = () => {
   );
 };
 
-export default Revenues;
+export default Donations;

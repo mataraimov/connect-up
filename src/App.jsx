@@ -8,14 +8,13 @@ import Header from './components/Layout/header/Header';
 import MenuBar from './components/Layout/MenuBar/MenuBar';
 import AboutUs from './pages/AboutUs';
 import AdminPanel from './pages/Admin/AdminEvents';
-// import Events from './pages/Events/Events';
 import EventDetail from './pages/events/EventDetail';
 import Council from './pages/Council';
 import Contacts from './pages/Contacts';
 import AlumniFund from './pages/Fund';
-import Revenues from './pages/Revenues';
+import Donations from './pages/Donations';
 import Events from './pages/events';
-import DonorDetails from './pages/Revenues/RevenueDetails';
+import DonorDetails from './pages/Donations/DonorDetails';
 import Login from './components/Modal/LoginModal/Login';
 
 const App = () => {
@@ -32,7 +31,7 @@ const App = () => {
           <Route path="/donate" element={<DonationPage />} />
 
           <Route path="/events" element={<Events />} />
-          <Route path="/revenues" element={<Revenues />} />
+          <Route path="/donations" element={<Donations />} />
           <Route path="/council" element={<Council />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/fund" element={<AlumniFund />} />

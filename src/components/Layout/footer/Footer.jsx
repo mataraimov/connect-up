@@ -58,7 +58,7 @@ const MainFooter = () => {
                 <p className="footer-title">Additional Links</p>
                 <ul className="footer-list">
                   <li>
-                    <Link to="/revenues">Revenues</Link>
+                    <Link to="/donations">Donations</Link>
                   </li>
                   <li>
                     <Link to="/council">Council</Link>
