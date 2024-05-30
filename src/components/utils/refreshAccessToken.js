@@ -8,7 +8,6 @@ export const refreshAccessToken = async () => {
     const response = await axios.post(`${API_URL}/users/refresh/token/`, {
       refresh_token: refreshToken,
     });
-    console.log(response.data);
     const newAccessToken = await response.data.access_token;
     const userID = await response.data.user_status.user_id;
     const isTeacher = await response.data.user_status.is_Teacher;

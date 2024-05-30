@@ -16,6 +16,7 @@ import AlumniFund from './pages/Fund';
 import Revenues from './pages/Revenues';
 import Events from './pages/events';
 import DonorDetails from './pages/Revenues/RevenueDetails';
+import Login from './components/Modal/LoginModal/Login';
 
 const App = () => {
   const { authData } = useAuth();
@@ -29,7 +30,7 @@ const App = () => {
         <Routes>
           <Route path="/about" element={<AboutUs />} />
           <Route path="/donate" element={<DonationPage />} />
-          <Route path="/admin-events" element={<AdminPanel />} />
+
           <Route path="/events" element={<Events />} />
           <Route path="/revenues" element={<Revenues />} />
           <Route path="/council" element={<Council />} />
@@ -38,6 +39,8 @@ const App = () => {
           <Route path="/donor/:id" element={<DonorDetails />} />
           <Route path="/event-detail/:id" element={<EventDetail />} />
           <Route path="*" element={<Navigate to="/about" />} />
+          <Route path="/auth" element={<Login />} />
+          <Route path="/admin-events" element={isAuth ? <AdminPanel /> : <Navigate to="/auth" />} />
         </Routes>
       </main>
       <MainFooter />

@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Layout, Menu, Form, Input, Button, Table, Modal, DatePicker, message } from 'antd';
+import { Layout, Button, Table, message, Modal } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import moment from 'moment';
+
 import './adminEvent.scss';
+import EventModal from './EventModal';
+import { useAuth } from '../../components/utils/context';
 
 const { Header, Content } = Layout;
 
 const API_URL = 'https://633acce9e02b9b64c617beec.mockapi.io/events';
 
 const AdminPanel = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { authData, setAuthData } = useAuth();
+  const { isAuth } = authData;
   const [events, setEvents] = useState([]);
   const [editingEvent, setEditingEvent] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [authModalVisible, setAuthModalVisible] = useState(true);
+  const [expandedContent, setExpandedContent] = useState('');
+  const [logoutModalVisible, setLogoutModalVisible] = useState(false);
+  const navigate = useNavigate();
 
   const fetchEvents = async () => {
     try {
@@ -29,18 +36,14 @@ const AdminPanel = () => {
     fetchEvents();
   }, []);
 
-  const handleLogin = (values) => {
-    if (values.username === 'admin' && values.password === 'admin123') {
-      setLoggedIn(true);
-      setAuthModalVisible(false);
-    } else {
-      message.error('Invalid username or password');
-    }
+  const handleLogout = async () => {
+    localStorage.clear();
+    setAuthData({ isAuth: false });
+    navigate('/auth');
   };
 
-  const handleLogout = () => {
-    setLoggedIn(false);
-    setAuthModalVisible(true);
+  const showLogoutModal = () => {
+    setLogoutModalVisible(true);
   };
 
   const handleAddEvent = () => {
@@ -49,7 +52,7 @@ const AdminPanel = () => {
   };
 
   const handleEditEvent = (event) => {
-    // setEditingEvent(event);
+    setEditingEvent(event);
     setModalVisible(true);
   };
 
@@ -80,11 +83,63 @@ const AdminPanel = () => {
     }
   };
 
+  const showExpandedContent = (content) => {
+    setExpandedContent(content);
+  };
+
+  const handleCloseExpandedContent = () => {
+    setExpandedContent('');
+  };
+
   const columns = [
     { title: 'Title', dataIndex: 'Title', key: 'title' },
-    { title: 'Description', dataIndex: 'Description', key: 'description' },
-    { title: 'Date', dataIndex: 'Date', key: 'date' },
-    { title: 'VideoLink', dataIndex: 'VideoLink', key: 'video' },
+    {
+      title: 'Description',
+      dataIndex: 'Description',
+      key: 'description',
+      render: (text) => (
+        <div
+          style={{
+            maxWidth: '600px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            cursor: 'pointer',
+            color: '#1890ff',
+          }}
+          onClick={() => showExpandedContent(text)}
+        >
+          {text}
+        </div>
+      ),
+    },
+    {
+      title: 'Date',
+      dataIndex: 'Date',
+      key: 'date',
+      render: (date) => moment(date).format('MMMM Do YYYY, h:mm a'),
+      width: 200,
+    },
+    {
+      title: 'VideoLink',
+      dataIndex: 'VideoLink',
+      key: 'video',
+      render: (text) => (
+        <div
+          style={{
+            maxWidth: '300px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            cursor: 'pointer',
+            color: '#1890ff',
+          }}
+          onClick={() => showExpandedContent(text)}
+        >
+          {text}
+        </div>
+      ),
+    },
     {
       title: 'Actions',
       key: 'actions',
@@ -99,18 +154,12 @@ const AdminPanel = () => {
 
   return (
     <Layout>
-      <Header>
-        <Menu theme="dark" mode="horizontal" selectable={false}>
-          {loggedIn ? (
-            <Menu.Item key="logout" onClick={handleLogout}>
-              Logout
-            </Menu.Item>
-          ) : (
-            <Menu.Item key="login">
-              <Link to="/login">Admin Login</Link>
-            </Menu.Item>
-          )}
-        </Menu>
+      <Header style={{ display: 'flex', justifyContent: 'flex-end', padding: '0 20px' }}>
+        {isAuth && (
+          <Button key="logout" onClick={showLogoutModal}>
+            Logout
+          </Button>
+        )}
       </Header>
       <Content style={{ padding: '0 50px', marginTop: '20px' }}>
         <div>
@@ -129,175 +178,22 @@ const AdminPanel = () => {
             onSubmit={handleModalSubmit}
             event={editingEvent}
           />
+          <Modal visible={!!expandedContent} onCancel={handleCloseExpandedContent} footer={null}>
+            <p>{expandedContent}</p>
+          </Modal>
+          <Modal
+            visible={logoutModalVisible}
+            onCancel={() => setLogoutModalVisible(false)}
+            onOk={handleLogout}
+            title="Confirm Logout"
+            okText="Yes, Logout"
+            cancelText="Cancel"
+          >
+            <p>Are you sure you want to logout?</p>
+          </Modal>
         </div>
       </Content>
-      <AuthModal visible={authModalVisible} onSubmit={handleLogin} />
     </Layout>
-  );
-};
-
-const LoginForm = ({ onLogin }) => {
-  const onFinish = (values) => {
-    onLogin(values);
-  };
-
-  return (
-    <Form
-      name="login_form"
-      onFinish={onFinish}
-      style={{ maxWidth: '300px', margin: 'auto', marginTop: '20px' }}
-    >
-      <Form.Item
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <Input placeholder="Username" />
-      </Form.Item>
-      <Form.Item
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password placeholder="Password" />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-          Login
-        </Button>
-      </Form.Item>
-    </Form>
-  );
-};
-
-const AdminDashboard = ({
-  events,
-  onAddEvent,
-  onEditEvent,
-  onDeleteEvent,
-  modalVisible,
-  setModalVisible,
-  onModalSubmit,
-  editingEvent,
-}) => {
-  return (
-    <div>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={onAddEvent}
-        style={{ marginBottom: '20px' }}
-      >
-        Add Event
-      </Button>
-      <Table dataSource={events} columns={columns} rowKey="id" />
-      <EventModal
-        visible={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        onSubmit={onModalSubmit}
-        event={editingEvent}
-      />
-    </div>
-  );
-};
-
-const EventModal = ({ visible, onCancel, onSubmit, event }) => {
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (event) {
-      form.setFieldsValue(event);
-    } else {
-      form.resetFields();
-    }
-  }, [event, form]);
-
-  const onFinish = (values) => {
-    onSubmit(values);
-  };
-
-  return (
-    <Modal
-      title={event ? 'Edit Event' : 'Add Event'}
-      visible={visible}
-      onCancel={onCancel}
-      footer={[
-        <Button key="cancel" onClick={onCancel}>
-          Cancel
-        </Button>,
-        <Button key="submit" type="primary" onClick={() => form.submit()}>
-          Submit
-        </Button>,
-      ]}
-    >
-      <Form form={form} layout="vertical" onFinish={onFinish}>
-        <Form.Item
-          name="Title"
-          label="Title"
-          rules={[{ required: true, message: 'Please input the title!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="Description"
-          label="Description"
-          rules={[{ required: true, message: 'Please input the description!' }]}
-        >
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item
-          name="Date"
-          label="Date"
-          rules={[{ required: true, message: 'Please input the date!' }]}
-        >
-          <DatePicker style={{ width: '100%' }} />
-        </Form.Item>
-        <Form.Item
-          name="ImageLink"
-          label="ImageLink"
-          rules={[{ required: true, message: 'Please input the imagelink!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item name="VideoLink" label="VideoLink">
-          <Input />
-        </Form.Item>
-      </Form>
-    </Modal>
-  );
-};
-
-const AuthModal = ({ visible, onSubmit }) => {
-  const onFinish = (values) => {
-    onSubmit(values);
-  };
-
-  return (
-    <Modal
-      title="Admin Login"
-      visible={visible}
-      footer={null}
-      closable={false}
-      maskClosable={false}
-    >
-      <Form name="auth_form" onFinish={onFinish} style={{ maxWidth: '300px', margin: 'auto' }}>
-        <Form.Item
-          name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
-        >
-          <Input placeholder="Username" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input.Password placeholder="Password" />
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
-            Login
-          </Button>
-        </Form.Item>
-      </Form>
-    </Modal>
   );
 };
 

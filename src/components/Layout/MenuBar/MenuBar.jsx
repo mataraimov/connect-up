@@ -21,9 +21,6 @@ const MenuBar = () => {
   };
 
   const isActive = (path) => location.pathname === path;
-  useEffect(() => {
-    console.log(isActive('/events'));
-  }, []);
 
   return (
     <div id="fixedactionsbox" className="navbar navbar-inverse menunav dark" role="navigation">
