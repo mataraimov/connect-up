@@ -9,10 +9,10 @@
   display: block;
 }
 
-.donation-card, .contact-card, .support-card {
+/* .donation-card, .contact-card, .support-card {
   text-align: center;
   padding: 20px;
-}
+} */
 
 .donation-card p, .support-card p {
   margin-top: 10px;

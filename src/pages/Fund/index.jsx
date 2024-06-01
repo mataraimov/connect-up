@@ -91,7 +91,7 @@ const AlumniFund = () => {
                 transition={{ duration: 1.5, delay: index * 0.3 }}
               >
                 <Card bordered={false} className="donation-card">
-                  <img src={method.img} alt={method.name} className="payment-logo" />
+                  <img src={method.img} alt={method.name} className="payment-logo-fund" />
                   <p>{method.name}</p>
                 </Card>
               </motion.div>
