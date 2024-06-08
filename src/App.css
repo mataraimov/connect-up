@@ -19,7 +19,9 @@ body {
 }
 
 .darkheader {
-	background-color: var(--co2);
+  
+  background-color: var(--co2);
+background: #000;  
 }
 
 select option {

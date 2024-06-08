@@ -4,6 +4,9 @@ import axios from 'axios';
 import { Layout, Typography, Spin, Button, Card, Row, Col } from 'antd';
 import { motion } from 'framer-motion';
 import './EventDetail.css'; // Ensure this CSS file exists for custom styles
+import { refreshAccessToken } from '../../components/utils/refreshAccessToken';
+import { API_URL } from '../../components/utils/config';
+import moment from 'moment';
 
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
@@ -17,9 +20,13 @@ const EventDetail = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await axios.get(
-          `https://633acce9e02b9b64c617beec.mockapi.io/events/${id}`,
-        );
+        await refreshAccessToken();
+        const response = await axios.get(`${API_URL}/events/detail/${id}`, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+          },
+        });
         setEvent(response.data);
         setLoading(false);
       } catch (error) {
@@ -55,7 +62,7 @@ const EventDetail = () => {
     <Layout style={{ padding: '0 24px 24px' }}>
       <Content style={{ padding: 24, margin: 0, minHeight: 280 }}>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-          <Title level={2}>{event.Title}</Title>
+          <Title level={2}>{event.event_name}</Title>
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
@@ -63,18 +70,19 @@ const EventDetail = () => {
           transition={{ duration: 1.5 }}
         >
           <img
-            src={event['ImageLink']}
-            alt={event.Title}
+            src={event['event_image_link']}
+            alt={event.event_image_link}
             style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
           />
         </motion.div>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2 }}>
-          <Paragraph>{event.Description}</Paragraph>
+          <Paragraph>{event.event_description}</Paragraph>
           <Row gutter={[16, 16]}>
             <Col span={12}>
               <Card>
                 <Paragraph>
-                  <strong>Date:</strong> {event.Date}
+                  <strong>Date:</strong>{' '}
+                  {`${moment(event.event_date).format('MMMM Do YYYY, h:mm a')}`}
                 </Paragraph>
               </Card>
             </Col>
@@ -82,8 +90,8 @@ const EventDetail = () => {
               <Card>
                 <Paragraph>
                   <strong>Video:</strong>{' '}
-                  <a href={event['VideoLink']} target="_blank" rel="noopener noreferrer">
-                    {event['VideoLink']}
+                  <a href={event['event_vidio_link']} target="_blank" rel="noopener noreferrer">
+                    {event['event_vidio_link']}
                   </a>
                 </Paragraph>
               </Card>

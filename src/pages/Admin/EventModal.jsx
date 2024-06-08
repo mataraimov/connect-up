@@ -1,16 +1,23 @@
 import React, { useEffect } from 'react';
-import { Modal, Form, Input, DatePicker, Button } from 'antd';
-import moment from 'moment';
+import { Modal, Form, Input, DatePicker, Button, Select } from 'antd';
+import dayjs from 'dayjs';
+
+const { Option } = Select;
 
 const EventModal = ({ visible, onCancel, onSubmit, event }) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
     if (event) {
-      form.setFieldsValue({
-        ...event,
-        Date: moment(event.Date),
-      });
+      const parsedDate = dayjs(event.event_date);
+      if (parsedDate.isValid()) {
+        form.setFieldsValue({
+          ...event,
+          event_date: parsedDate,
+        });
+      } else {
+        console.error('Invalid date format:', event.event_date);
+      }
     } else {
       form.resetFields();
     }
@@ -19,7 +26,7 @@ const EventModal = ({ visible, onCancel, onSubmit, event }) => {
   const onFinish = (values) => {
     onSubmit({
       ...values,
-      Date: values.Date.format('YYYY-MM-DD'),
+      event_date: values.event_date ? values.event_date.toISOString() : null,
     });
   };
 
@@ -39,34 +46,45 @@ const EventModal = ({ visible, onCancel, onSubmit, event }) => {
     >
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <Form.Item
-          name="Title"
+          name="event_name"
           label="Title"
           rules={[{ required: true, message: 'Please input the title!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name="Description"
+          name="event_description"
           label="Description"
           rules={[{ required: true, message: 'Please input the description!' }]}
         >
           <Input.TextArea rows={4} />
         </Form.Item>
         <Form.Item
-          name="Date"
+          name="event_date"
           label="Date"
           rules={[{ required: true, message: 'Please input the date!' }]}
         >
-          <DatePicker style={{ width: '100%' }} showTime />
+          <DatePicker format="YYYY-MM-DD HH:mm:ss" style={{ width: '100%' }} showTime />
         </Form.Item>
         <Form.Item
-          name="ImageLink"
+          name="event_status"
+          label="Status"
+          rules={[{ required: true, message: 'Please select the status!' }]}
+        >
+          <Select>
+            <Option value="Начало">Начало</Option>
+            <Option value="Прогресс">Прогресс</Option>
+            <Option value="Завершено">Завершено</Option>
+          </Select>
+        </Form.Item>
+        <Form.Item
+          name="event_image_link"
           label="ImageLink"
           rules={[{ required: true, message: 'Please input the imagelink!' }]}
         >
           <Input />
         </Form.Item>
-        <Form.Item name="VideoLink" label="VideoLink">
+        <Form.Item name="event_vidio_link" label="VideoLink">
           <Input />
         </Form.Item>
       </Form>

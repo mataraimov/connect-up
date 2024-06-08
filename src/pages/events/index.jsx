@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import './Events.scss';
 import { Layout, Typography, Row, Col, Card } from 'antd';
 import { motion } from 'framer-motion';
-
+import { API_URL } from '../../components/utils/config';
+import { refreshAccessToken } from '../../components/utils/refreshAccessToken';
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
@@ -13,10 +14,10 @@ const EventCard = ({ event }) => {
   return (
     <Col xs={24} sm={12} md={8} className="animated-card">
       <div className="thumbnail animated-card">
-        <img src={event.ImageLink} alt={event.Title} className="img-responsive" />
+        <img src={event.event_image_link} alt={event.event_image_link} className="img-responsive" />
         <div className="caption">
-          <h3 className={'truncated-text-1'}>{event.Title}</h3>
-          <p className={'truncated-text'}>{event.Description}</p>
+          <h3 className={'truncated-text-1'}>{event.event_name}</h3>
+          <p className={'truncated-text'}>{event.event_description}</p>
           <p>
             <Link to={`/event-detail/${event.id}`} className="btn btn-primary" role="button">
               Read more
@@ -30,12 +31,17 @@ const EventCard = ({ event }) => {
 
 const Events = () => {
   const [events, setEvents] = useState([]);
-  const API_URL = 'https://633acce9e02b9b64c617beec.mockapi.io/events';
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get(API_URL);
-      setEvents(response.data);
+      await refreshAccessToken();
+      const response = await axios.get(`${API_URL}/admins/event/list/`, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`, // Assuming you use Bearer token authentication
+        },
+      });
+      setEvents(response.data.results);
     } catch (error) {
       console.log(error);
       message.error('Failed to fetch events');

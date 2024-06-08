@@ -19,8 +19,8 @@ import Login from './components/Modal/LoginModal/Login';
 
 const App = () => {
   const { authData } = useAuth();
-  const { isAuth } = authData;
-
+  // const { isAuth } = authData;
+  const isAuth = true;
   return (
     <>
       <Header />

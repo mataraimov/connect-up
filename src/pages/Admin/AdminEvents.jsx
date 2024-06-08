@@ -4,14 +4,13 @@ import axios from 'axios';
 import { Layout, Button, Table, message, Modal } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import moment from 'moment';
-
+import { API_URL } from '../../components/utils/config';
 import './adminEvent.scss';
 import EventModal from './EventModal';
 import { useAuth } from '../../components/utils/context';
+import { refreshAccessToken } from '../../components/utils/refreshAccessToken';
 
 const { Header, Content } = Layout;
-
-const API_URL = 'https://633acce9e02b9b64c617beec.mockapi.io/events';
 
 const AdminPanel = () => {
   const { authData, setAuthData } = useAuth();
@@ -25,8 +24,15 @@ const AdminPanel = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get(API_URL);
-      setEvents(response.data);
+      await refreshAccessToken();
+      const response = await axios.get(`${API_URL}/admins/event/list/`, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`, // Assuming you use Bearer token authentication
+        },
+      });
+      console.log(response);
+      setEvents(response.data.results);
     } catch (error) {
       message.error('Failed to fetch events');
     }
@@ -58,7 +64,7 @@ const AdminPanel = () => {
 
   const handleDeleteEvent = async (id) => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      await axios.delete(`${API_URL}/events/detail/${id}/`);
       fetchEvents();
       message.success('Event deleted successfully');
     } catch (error) {
@@ -69,10 +75,10 @@ const AdminPanel = () => {
   const handleModalSubmit = async (values) => {
     try {
       if (editingEvent) {
-        await axios.put(`${API_URL}/${editingEvent.id}`, values);
+        await axios.patch(`${API_URL}/events/detail/${editingEvent.id}/`, values);
         message.success('Event updated successfully');
       } else {
-        await axios.post(API_URL, values);
+        await axios.post(`${API_URL}/events/create/`, values);
         message.success('Event added successfully');
       }
       fetchEvents();
@@ -92,10 +98,10 @@ const AdminPanel = () => {
   };
 
   const columns = [
-    { title: 'Title', dataIndex: 'Title', key: 'title' },
+    { title: 'Title', dataIndex: 'event_name', key: 'title' },
     {
       title: 'Description',
-      dataIndex: 'Description',
+      dataIndex: 'event_description',
       key: 'description',
       render: (text) => (
         <div
@@ -114,20 +120,13 @@ const AdminPanel = () => {
       ),
     },
     {
-      title: 'Date',
-      dataIndex: 'Date',
-      key: 'date',
-      render: (date) => moment(date).format('MMMM Do YYYY, h:mm a'),
-      width: 200,
-    },
-    {
-      title: 'VideoLink',
-      dataIndex: 'VideoLink',
-      key: 'video',
+      title: 'image_link',
+      dataIndex: 'event_image_link',
+      key: 'image_link',
       render: (text) => (
         <div
           style={{
-            maxWidth: '300px',
+            maxWidth: '100px',
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -140,6 +139,34 @@ const AdminPanel = () => {
         </div>
       ),
     },
+    {
+      title: 'Date',
+      dataIndex: 'event_date',
+      key: 'date',
+      render: (date) => moment(date).format('MMMM Do YYYY, h:mm a'),
+      width: 200,
+    },
+    {
+      title: 'VideoLink',
+      dataIndex: 'event_vidio_link',
+      key: 'video',
+      render: (text) => (
+        <div
+          style={{
+            maxWidth: '100px',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            cursor: 'pointer',
+            color: '#1890ff',
+          }}
+          onClick={() => showExpandedContent(text)}
+        >
+          {text}
+        </div>
+      ),
+    },
+    { title: 'Status', dataIndex: 'event_status', key: 'status' },
     {
       title: 'Actions',
       key: 'actions',

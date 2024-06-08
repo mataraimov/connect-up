@@ -1,7 +1,7 @@
 
 .ant-layout-header {
   background: #fff;
-  border-bottom: 1px solid #e8e8e8;
+  /* border-bottom: 1px solid #e8e8e8; */
 }
 
 .ant-typography {
@@ -19,6 +19,7 @@
 .avatar {
   width: 100px;
   height: 100px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
