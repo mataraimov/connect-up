@@ -1,49 +1,67 @@
 import React, { useState } from 'react';
 import './mainPage.module.scss';
+import axios from 'axios';
+import { Select } from 'antd';
+
+const donation_title = [
+  { event_title: "zxccxb" },
+  { event_title: "Fundraising Gala for the New Science Lab" },
+
+]
 const DonationPage = () => {
   const [formData, setFormData] = useState({
-    giftAmount: '',
+    gift_amount: '',
     email: '',
-    confirmEmail: '',
-    firstName: '',
-    lastName: '',
+    email2: '',
+    first_name: '',
+    last_name: '',
     country: '',
-    phoneNumber: '',
-    classYear: '',
+    phone_number: '',
+    class_year: '',
     program: '',
+    donation_title: null,
     comments: '',
     agreedToTerms: false,
     donationCategory: '',
   });
+  console.log(formData, 'formData');
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
+    let finalValue = type === 'checkbox' ? checked : value;
+
+    // If the name is 'donation_title' and value is an object, use the id
+    if (name === 'donation_title' && typeof value === 'object' && value !== null) {
+        finalValue = value.id;
+    }
+
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: finalValue,
     });
-  };
+};
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Implement form submission logic here
     console.log('Form submitted!', formData);
-
+    const response = axios.post('https://connectappproject.pythonanywhere.com/donate/', formData);
+    console.log(response);
     // Clear form fields after submission
-    setFormData({
-      giftAmount: '',
-      email: '',
-      confirmEmail: '',
-      firstName: '',
-      lastName: '',
-      country: '',
-      phoneNumber: '',
-      classYear: '',
-      program: '',
-      comments: '',
-      agreedToTerms: false,
-      donationCategory: '',
-    });
+    // setFormData({
+    //   giftAmount: '',
+    //   email: '',
+    //   confirmEmail: '',
+    //   firstName: '',
+    //   lastName: '',
+    //   country: '',
+    //   phoneNumber: '',
+    //   classYear: '',
+    //   program: '',
+    //   comments: '',
+    //   agreedToTerms: false,
+    //   donationCategory: '',
+    // });
   };
 
   return (
@@ -70,8 +88,8 @@ const DonationPage = () => {
               <input
                 type="number"
                 className="form-control"
-                name="giftAmount"
-                value={formData.giftAmount}
+                name="gift_amount"
+                value={formData.gift_amount}
                 onChange={handleInputChange}
                 required
               />
@@ -79,7 +97,7 @@ const DonationPage = () => {
             <div className="alert alert-info" role="alert">
               <p>**PAYMENT SUMMARY**</p>
               <p>
-                You will be charged <strong>{formData.giftAmount} KGS</strong>. This is a one-time
+                You will be charged <strong>{formData.gift_amount} KGS</strong>. This is a one-time
                 gift.
               </p>
               <div className="alert alert-warning" role="alert">
@@ -127,13 +145,13 @@ const DonationPage = () => {
                 />
               </div>
               <div className="col-md-6 form-group">
-                <label htmlFor="confirmEmail">Confirm Email *</label>
+                <label htmlFor="email2">Confirm Email *</label>
                 <input
                   type="email"
                   className="form-control"
-                  id="confirmEmail"
-                  name="confirmEmail"
-                  value={formData.confirmEmail}
+                  id="email2"
+                  name="email2"
+                  value={formData.email2}
                   onChange={handleInputChange}
                   required
                 />
@@ -146,8 +164,8 @@ const DonationPage = () => {
                   type="text"
                   className="form-control"
                   id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   required
                 />
@@ -158,8 +176,8 @@ const DonationPage = () => {
                   type="text"
                   className="form-control"
                   id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleInputChange}
                   required
                 />
@@ -184,8 +202,8 @@ const DonationPage = () => {
                   type="tel"
                   className="form-control"
                   id="phoneNumber"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  name="phone_number"
+                  value={formData.phone_number}
                   onChange={handleInputChange}
                   placeholder="+996-..."
                 />
@@ -198,8 +216,8 @@ const DonationPage = () => {
                   type="number"
                   className="form-control"
                   id="classYear"
-                  name="classYear"
-                  value={formData.classYear}
+                  name="class_year"
+                  value={formData.class_year}
                   onChange={handleInputChange}
                 />
               </div>
@@ -219,7 +237,31 @@ const DonationPage = () => {
         </div>
 
         <div className="form-group">
-          <h3 className="h5">4. Please give your comments</h3>
+          <h3 className="h5">4. Please give your Donation title</h3>
+          <label htmlFor="donation_title">
+            Donation title*
+          </label>
+          {/* <input
+            className="form-control"
+            id="donation_title"
+            name="donation_title"
+            rows="5"
+            value={formData.donation_title.forEach(element => {
+              element.event_title
+            })}
+            onChange={handleInputChange}
+          /> */}
+          <Select
+            // mode="tags"
+            style={{ width: '100%' }}
+            placeholder="Tags Mode"
+            // onChange={handleChange}
+            options={donation_title.map((item) => ({ value: item.event_title, label: item.event_title }))}
+            onChange={(value) => setFormData({ ...formData, donation_title: [{ event_title: value }] })}
+            />
+              </div>
+        <div className="form-group">
+          <h3 className="h5">5. Please give your comments</h3>
           <label htmlFor="comments">
             What inspired you to give today's gift to the Alumni Fund?
           </label>
