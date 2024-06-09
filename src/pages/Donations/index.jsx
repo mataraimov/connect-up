@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { Table } from 'antd';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import IncomeTraffic from './incomeTraffic';
-import { mockDonations } from './mockData';
+import { API_URL } from '../../components/utils/config';
 
 const Donations = () => {
   const [data, setData] = useState([]);
@@ -18,12 +19,11 @@ const Donations = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      setTimeout(() => {
-        setData(mockDonations);
-        setLoading(false);
-      }, 1000);
+      const response = await axios.get(`${API_URL}/donate/last-donations`);
+      setData(response.data);
+      setLoading(false);
     } catch (error) {
-      console.error('Ошибка при получении данных:', error);
+      console.error('Error fetching data:', error);
       setLoading(false);
     }
   };
@@ -34,22 +34,24 @@ const Donations = () => {
 
   const columns = [
     {
-      title: 'Имя',
-      dataIndex: 'firstName',
-      key: 'name',
+      title: 'First Name',
+      dataIndex: 'full_name',
+      key: 'firstName',
+      render: (fullName) => fullName.split(' ')[0], // Assuming firstName is the first part of full_name
     },
     {
-      title: 'Фамилия',
-      dataIndex: 'lastName',
-      key: 'surname',
+      title: 'Last Name',
+      dataIndex: 'full_name',
+      key: 'lastName',
+      render: (fullName) => fullName.split(' ')[1], // Assuming lastName is the second part of full_name
     },
     {
-      title: 'Пожертвование',
-      dataIndex: 'total_donation',
+      title: 'Donation',
+      dataIndex: 'gift_amount',
       key: 'total_donation',
     },
     {
-      title: 'Дата пожертвования',
+      title: 'Donation Date',
       dataIndex: 'donation_date',
       key: 'donation_date',
       render: (date) => <span>{moment(date).format('DD/MM/YYYY')}</span>,
@@ -58,7 +60,7 @@ const Donations = () => {
       render: (text, record) => (
         <span>
           <a style={{ color: '#1890ff' }} onClick={() => showDetails(record)}>
-            Детали
+            Details
           </a>
         </span>
       ),

@@ -1,49 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './mainPage.module.scss';
+import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { Button, Modal, Result } from 'antd';
+
 const DonationPage = () => {
+  const location = useLocation();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [checkoutUrl, setCheckoutUrl] = useState('');
+
+  const donationTitle = location.state?.donationTitle || '';
   const [formData, setFormData] = useState({
-    giftAmount: '',
+    gift_amount: '',
     email: '',
-    confirmEmail: '',
-    firstName: '',
-    lastName: '',
+    email2: '',
+    first_name: '',
+    last_name: '',
     country: '',
-    phoneNumber: '',
-    classYear: '',
+    phone_number: '',
+    class_year: '',
     program: '',
+    donation_title: donationTitle,
     comments: '',
     agreedToTerms: false,
-    donationCategory: '',
   });
+  const [donationOptions, setDonationOptions] = useState([
+    { id: 1, value: donationTitle, label: donationTitle }, // Предположим, что donationTitle соответствует id 1
+    { id: 2, value: 'Educational', label: 'Educational' },
+    { id: 3, value: 'Projects', label: 'Projects' },
+    { id: 4, value: 'Scholarships', label: 'Scholarships' },
+    { id: 5, value: 'Technology', label: 'Technology' },
+  ]);
+  const handleOk = () => {
+    setIsModalVisible(false);
+    window.location.href = checkoutUrl;
+  };
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      donation_title: donationTitle,
+    }));
+  }, [donationTitle]);
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
+    const finalValue = type === 'checkbox' ? checked : value;
+
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: finalValue,
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Implement form submission logic here
-    console.log('Form submitted!', formData);
+    const selectedOption = donationOptions.find(
+      (option) => option.value === formData.donation_title,
+    );
+    const payload = { ...formData, donation_title: [selectedOption.id] };
+    console.log(payload);
+    try {
+      const response = await axios.post(
+        'https://connectappproject.pythonanywhere.com/donate/',
+        payload,
+      );
+      console.log(response);
+      setCheckoutUrl(response.data.checkout_url);
+      setIsModalVisible(true);
 
-    // Clear form fields after submission
-    setFormData({
-      giftAmount: '',
-      email: '',
-      confirmEmail: '',
-      firstName: '',
-      lastName: '',
-      country: '',
-      phoneNumber: '',
-      classYear: '',
-      program: '',
-      comments: '',
-      agreedToTerms: false,
-      donationCategory: '',
-    });
+      setFormData({
+        gift_amount: '',
+        email: '',
+        email2: '',
+        first_name: '',
+        last_name: '',
+        country: '',
+        phone_number: '',
+        class_year: '',
+        program: '',
+        donation_title: donationTitle,
+        comments: '',
+        agreedToTerms: false,
+      });
+    } catch (error) {
+      console.error('There was an error submitting the form!', error);
+    }
   };
 
   return (
@@ -70,8 +111,8 @@ const DonationPage = () => {
               <input
                 type="number"
                 className="form-control"
-                name="giftAmount"
-                value={formData.giftAmount}
+                name="gift_amount"
+                value={formData.gift_amount}
                 onChange={handleInputChange}
                 required
               />
@@ -79,7 +120,7 @@ const DonationPage = () => {
             <div className="alert alert-info" role="alert">
               <p>**PAYMENT SUMMARY**</p>
               <p>
-                You will be charged <strong>{formData.giftAmount} KGS</strong>. This is a one-time
+                You will be charged <strong>{formData.gift_amount} KGS</strong>. This is a one-time
                 gift.
               </p>
               <div className="alert alert-warning" role="alert">
@@ -91,28 +132,7 @@ const DonationPage = () => {
           </div>
 
           <div className="col-md-8 mb-3">
-            <h3 className="h5">2. Select Donation Category</h3>
-            <div className="form-group">
-              <label htmlFor="donationCategory">Category *</label>
-              <select
-                className="form-control"
-                id="donationCategory"
-                name="donationCategory"
-                value={formData.donationCategory}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="">Select Category</option>
-                <option value="Educational">Educational</option>
-                <option value="Projects">Projects</option>
-                <option value="Scholarships">Scholarships</option>
-                <option value="Technology">Technology</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="col-md-8 mb-3">
-            <h3 className="h5">3. Enter Your Contact Information</h3>
+            <h3 className="h5">2. Enter Your Contact Information</h3>
             <div className="form-row">
               <div className="col-md-6 form-group">
                 <label htmlFor="email">Email *</label>
@@ -127,13 +147,13 @@ const DonationPage = () => {
                 />
               </div>
               <div className="col-md-6 form-group">
-                <label htmlFor="confirmEmail">Confirm Email *</label>
+                <label htmlFor="email2">Confirm Email *</label>
                 <input
                   type="email"
                   className="form-control"
-                  id="confirmEmail"
-                  name="confirmEmail"
-                  value={formData.confirmEmail}
+                  id="email2"
+                  name="email2"
+                  value={formData.email2}
                   onChange={handleInputChange}
                   required
                 />
@@ -141,25 +161,25 @@ const DonationPage = () => {
             </div>
             <div className="form-row">
               <div className="col-md-6 form-group">
-                <label htmlFor="firstName">First Name *</label>
+                <label htmlFor="first_name">First Name *</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="firstName"
-                  name="firstName"
-                  value={formData.firstName}
+                  id="first_name"
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="col-md-6 form-group">
-                <label htmlFor="lastName">Last Name *</label>
+                <label htmlFor="last_name">Last Name *</label>
                 <input
                   type="text"
                   className="form-control"
-                  id="lastName"
-                  name="lastName"
-                  value={formData.lastName}
+                  id="last_name"
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleInputChange}
                   required
                 />
@@ -179,32 +199,32 @@ const DonationPage = () => {
                 />
               </div>
               <div className="col-md-6 form-group">
-                <label htmlFor="phoneNumber">Phone Number</label>
+                <label htmlFor="phone_number">Phone Number *</label>
                 <input
-                  type="tel"
+                  type="text"
                   className="form-control"
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
+                  id="phone_number"
+                  name="phone_number"
+                  value={formData.phone_number}
                   onChange={handleInputChange}
-                  placeholder="+996-..."
+                  required
                 />
               </div>
             </div>
             <div className="form-row">
               <div className="col-md-6 form-group">
-                <label htmlFor="classYear">Class Year of graduation from IAU (if applicable)</label>
+                <label htmlFor="class_year">Class Year</label>
                 <input
-                  type="number"
+                  type="text"
                   className="form-control"
-                  id="classYear"
-                  name="classYear"
-                  value={formData.classYear}
+                  id="class_year"
+                  name="class_year"
+                  value={formData.class_year}
                   onChange={handleInputChange}
                 />
               </div>
               <div className="col-md-6 form-group">
-                <label htmlFor="program">Program of study at IAU (if applicable)</label>
+                <label htmlFor="program">Program</label>
                 <input
                   type="text"
                   className="form-control"
@@ -216,49 +236,91 @@ const DonationPage = () => {
               </div>
             </div>
           </div>
+
+          <div className="col-md-8 mb-3">
+            <h3 className="h5">3. Choose Donation Type</h3>
+            <div className="form-group">
+              <label htmlFor="donation_title">Donation Title*</label>
+              <select
+                className="form-control"
+                id="donation_title"
+                name="donation_title"
+                value={formData.donation_title}
+                onChange={handleInputChange}
+                required
+              >
+                {donationOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="col-md-8 mb-3">
+            <h3 className="h5">4. Add Your Comments</h3>
+            <div className="form-group">
+              <label htmlFor="comments">Comments</label>
+              <textarea
+                className="form-control"
+                id="comments"
+                name="comments"
+                rows="3"
+                value={formData.comments}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+
+          <div className="col-md-8 mb-3">
+            <h3 className="h5">5. Terms and Conditions</h3>
+            <div className="form-group form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                id="agreedToTerms"
+                name="agreedToTerms"
+                checked={formData.agreedToTerms}
+                onChange={handleInputChange}
+                required
+              />
+              <label className="form-check-label" htmlFor="agreedToTerms">
+                I agree to the terms and conditions.
+              </label>
+            </div>
+          </div>
+
+          <div className="col-md-8 mb-3">
+            <button type="submit" className="btn btn-primary btn-block">
+              Submit Donation
+            </button>
+          </div>
         </div>
-
-        <div className="form-group">
-          <h3 className="h5">4. Please give your comments</h3>
-          <label htmlFor="comments">
-            What inspired you to give today's gift to the Alumni Fund?
-          </label>
-          <textarea
-            className="form-control"
-            id="comments"
-            name="comments"
-            rows="5"
-            value={formData.comments}
-            onChange={handleInputChange}
-          />
-        </div>
-
-        <div className="form-check mb-3">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="agreedToTerms"
-            name="agreedToTerms"
-            checked={formData.agreedToTerms}
-            onChange={handleInputChange}
-            required
-          />
-          <label className="form-check-label" htmlFor="agreedToTerms">
-            I have read and agree with the <a href="#">Public Offer</a>
-          </label>
-        </div>
-
-        <button type="submit" className="btn btn-primary btn-lg">
-          Make Gift
-        </button>
-
-        <div className="mt-3">
+        <div className="col-md-8 mb-3">
           <p>
             If you have questions, please contact the Development office, by phone at
             +996-312-915000 ext. 104 or email development@IAU.kg.
           </p>
         </div>
       </form>
+      <Modal
+        title="Payment Success"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={() => setIsModalVisible(false)}
+        footer={[
+          <Button key="ok" type="primary" onClick={handleOk}>
+            Go to Checkout
+          </Button>,
+        ]}
+      >
+        <Result
+          status="success"
+          title="Your donation was successful!"
+          subTitle="Thank you for your generosity. You will be redirected to the payment page."
+        />
+      </Modal>
     </div>
   );
 };

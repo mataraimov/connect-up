@@ -101,7 +101,7 @@ const EventDetail = () => {
             type="primary"
             size="large"
             style={{ marginTop: '20px', width: '100%' }}
-            onClick={() => navigate('/donate')}
+            onClick={() => navigate('/donate', { state: { donationTitle: event.event_name } })}
           >
             Donate Now
           </Button>

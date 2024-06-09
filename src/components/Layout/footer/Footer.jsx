@@ -11,11 +11,22 @@ const MainFooter = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-2">
-            <img
-              src="https://media.licdn.com/dms/image/C4E03AQHibu7GEjIwLQ/profile-displayphoto-shrink_200_200/0/1663907068590?e=2147483647&v=beta&t=0HMXlE4a6cXVutTCpoBV8-spLVuwp31ErW8wJzGEfkw"
-              alt="Logo"
-              className="footer-logo"
-            />
+            <Link to="/" className="logo">
+              <img
+                width={58}
+                src="https://my.alatoo.edu.kg/images/logo_aiu.png"
+                alt="IAU - Alumni"
+              />
+            </Link>
+
+            <Link to="/" className="logo">
+              <img
+                style={{ marginLeft: '20px' }}
+                width={58}
+                src="https://i.ibb.co/RYXzbF2/image-removebg-preview.png"
+                alt="IAU - Alumni"
+              />
+            </Link>
           </div>
           <div className="col-md-10">
             <div className="row">

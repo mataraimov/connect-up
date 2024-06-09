@@ -9,7 +9,8 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import moment from 'moment';
-import { mockMonthlyDonations } from './mockData';
+import axios from 'axios';
+import { API_URL } from '../../components/utils/config';
 
 const IncomeTraffic = () => {
   const [data, setData] = useState([]);
@@ -20,16 +21,14 @@ const IncomeTraffic = () => {
 
   const fetchData = async () => {
     try {
-      // Simulate an API call
-      setTimeout(() => {
-        const incomeData = Object.entries(mockMonthlyDonations).map(([month, income]) => ({
-          month,
-          income,
-        }));
-        setData(incomeData);
-      }, 1000);
+      const response = await axios.get(`${API_URL}/donate/statistic`);
+      const incomeData = Object.entries(response.data).map(([month, income]) => ({
+        month,
+        income,
+      }));
+      setData(incomeData);
     } catch (error) {
-      console.error('Ошибка при получении данных:', error);
+      console.error('Error fetching data:', error);
     }
   };
 
