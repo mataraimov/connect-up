@@ -38,8 +38,8 @@ const MenuBar = () => {
         </div>
         <div className={`navbar-collapse collapse ${menuOpen ? 'in' : ''}`} id="checkmenuwidth">
           <ul className="nav navbar-nav navbar-center">
-            <li className={isActive('/about') ? 'active' : ''}>
-              <Link className="menu" to="/about">
+            <li className={isActive('/') ? 'active' : ''}>
+              <Link className="menu" to="/">
                 About us
               </Link>
             </li>

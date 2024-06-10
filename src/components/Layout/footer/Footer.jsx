@@ -34,7 +34,7 @@ const MainFooter = () => {
                 <p className="footer-title">About Us</p>
                 <ul className="footer-list">
                   <li>
-                    <Link to="/about">About Us</Link>
+                    <Link to="/">About Us</Link>
                   </li>
                   <li>
                     <Link to="/contacts">Contacts</Link>
