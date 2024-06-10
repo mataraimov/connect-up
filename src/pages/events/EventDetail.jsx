@@ -20,13 +20,7 @@ const EventDetail = () => {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        await refreshAccessToken();
-        const response = await axios.get(`${API_URL}/events/detail/${id}`, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          },
-        });
+        const response = await axios.get(`${API_URL}/events/detail/${id}`);
         setEvent(response.data);
         setLoading(false);
       } catch (error) {
