@@ -27,7 +27,7 @@ const App = () => {
       <MenuBar />
       <main style={{ minHeight: '100vh' }}>
         <Routes>
-          <Route path="/about" element={<AboutUs />} />
+          <Route path="/" element={<AboutUs />} />
           <Route path="/donate" element={<DonationPage />} />
 
           <Route path="/events" element={<Events />} />
@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/fund" element={<AlumniFund />} />
           <Route path="/donor/:id" element={<DonorDetails />} />
           <Route path="/event-detail/:id" element={<EventDetail />} />
-          <Route path="*" element={<Navigate to="/about" />} />
+          <Route path="*" element={<Navigate to="/" />} />
           <Route path="/auth" element={<Login />} />
           <Route path="/admin-events" element={isAuth ? <AdminPanel /> : <Navigate to="/auth" />} />
         </Routes>
