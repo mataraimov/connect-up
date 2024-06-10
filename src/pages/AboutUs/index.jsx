@@ -46,7 +46,7 @@ const AboutUs = () => {
             <img
               src="https://i.ibb.co/DffzwdD/2024-06-10-13-19-02.png"
               alt="Our Values"
-              style={{ maxWidth: '100%', borderRadius: '8px', height: 'auto' }}
+              style={{ width: '348px', marginTop: '14px', borderRadius: '8px', height: 'auto' }}
             />
           </motion.div>
         </Col>
