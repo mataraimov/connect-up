@@ -3,10 +3,10 @@ import axios from 'axios';
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import './Events.scss';
-import { Layout, Typography, Row, Col, Card } from 'antd';
+import { Layout, Typography, Row, Col } from 'antd';
 import { motion } from 'framer-motion';
 import { API_URL } from '../../components/utils/config';
-import { refreshAccessToken } from '../../components/utils/refreshAccessToken';
+// import { refreshAccessToken } from '../../components/utils/refreshAccessToken';
 const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 
@@ -34,13 +34,7 @@ const Events = () => {
 
   const fetchEvents = async () => {
     try {
-      await refreshAccessToken();
-      const response = await axios.get(`${API_URL}/admins/event/list/`, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`, // Assuming you use Bearer token authentication
-        },
-      });
+      const response = await axios.get(`${API_URL}/events/list/`);
       setEvents(response.data.results);
     } catch (error) {
       console.log(error);
