@@ -44,7 +44,7 @@ const AboutUs = () => {
               goal is to inspire and support students in their pursuit of higher goals.
             </Paragraph>
             <img
-              src="https://www.shutterstock.com/image-vector/business-values-two-businessmen-shaking-260nw-1658106889.jpg"
+              src="https://i.ibb.co/DffzwdD/2024-06-10-13-19-02.png"
               alt="Our Values"
               style={{ maxWidth: '100%', borderRadius: '8px', height: 'auto' }}
             />
